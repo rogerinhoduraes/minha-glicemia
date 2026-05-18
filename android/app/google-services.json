@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "474254388582",
+    "project_id": "minhaglicemia-618f2",
+    "storage_bucket": "minhaglicemia-618f2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:474254388582:android:83d0d4e976d65e5e8c2ca7",
+        "android_client_info": {
+          "package_name": "com.minhaglicemia.minha_glicemia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6uwznTbzJUEEOdQFjeU3vpl3xbWn31bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

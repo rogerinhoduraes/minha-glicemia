@@ -1,0 +1,74 @@
+name: minha_glicemia
+description: "Monitoramento de glicemia com autenticação e histórico."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Firebase
+  firebase_core: ^3.13.0
+  firebase_auth: ^5.5.3
+  cloud_firestore: ^5.6.6
+  firebase_analytics: ^11.3.0
+
+  # Autenticação
+  google_sign_in: ^6.2.2
+
+  # AdMob
+  google_mobile_ads: ^5.3.0
+
+  # Utilitários
+  intl: ^0.20.2
+  google_fonts: ^6.2.1
+
+  # PDF
+  pdf: ^3.11.2
+  printing: ^5.14.2
+
+  # Notificações locais
+  flutter_local_notifications: ^18.0.0
+  timezone: ^0.10.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.3
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#2B6CB0"
+  adaptive_icon_foreground: "assets/icon.png"
+  web:
+    generate: false
+
+flutter_native_splash:
+  color: "#2B6CB0"
+  image: assets/icon.png
+  color_dark: "#2B6CB0"
+  image_dark: assets/icon.png
+  android_12:
+    image: assets/icon.png
+    color: "#2B6CB0"
+    image_dark: assets/icon.png
+    color_dark: "#2B6CB0"
+  fullscreen: false
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/

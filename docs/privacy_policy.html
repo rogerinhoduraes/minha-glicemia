@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidade — Minha Glicemia</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    header h1 { font-size: 1.9rem; font-weight: 800; margin-bottom: 8px; }
+    header p  { font-size: 0.95rem; opacity: 0.85; }
+    main {
+      max-width: 780px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+    }
+    section { margin-bottom: 36px; }
+    h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2563eb;
+      border-left: 4px solid #2563eb;
+      padding-left: 12px;
+      margin-bottom: 14px;
+    }
+    p  { margin-bottom: 12px; font-size: 0.97rem; color: #334155; }
+    ul { padding-left: 20px; margin-bottom: 12px; }
+    li { margin-bottom: 6px; font-size: 0.97rem; color: #334155; }
+    a  { color: #2563eb; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .updated {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+    }
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.85rem;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🩸 Minha Glicemia</h1>
+  <p>Política de Privacidade</p>
+</header>
+
+<main>
+  <p class="updated">Última atualização: 18 de maio de 2026</p>
+
+  <section>
+    <h2>1. Introdução</h2>
+    <p>
+      Esta Política de Privacidade descreve como o aplicativo <strong>Minha Glicemia</strong>,
+      desenvolvido por <strong>Rogério Duraes</strong>
+      (<a href="mailto:rogerinho.duraes@gmail.com">rogerinho.duraes@gmail.com</a>),
+      coleta, usa, armazena e protege as informações dos usuários.
+    </p>
+    <p>
+      Ao utilizar o aplicativo, você concorda com as práticas descritas neste documento,
+      em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).
+    </p>
+  </section>
+
+  <section>
+    <h2>2. Dados coletados</h2>
+    <p>O aplicativo coleta as seguintes categorias de dados:</p>
+    <ul>
+      <li><strong>Dados de saúde:</strong> registros de glicemia (valor em mg/dL, data, horário e tipo de refeição).</li>
+      <li><strong>Dados do perfil:</strong> nome, data de nascimento e peso (preenchidos voluntariamente pelo usuário).</li>
+      <li><strong>Dados de autenticação:</strong> endereço de e-mail e senha (login por e-mail) ou informações básicas de conta Google (nome e foto, via Google Sign-In).</li>
+      <li><strong>Dados de uso:</strong> telas acessadas, ações realizadas e eventos de interação, coletados anonimamente pelo Firebase Analytics.</li>
+      <li><strong>Dados de dispositivo:</strong> identificadores de dispositivo e dados de publicidade coletados pelo Google AdMob para exibição de anúncios.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. Finalidade do tratamento</h2>
+    <p>Os dados são utilizados exclusivamente para:</p>
+    <ul>
+      <li>Armazenar e sincronizar seus registros de glicemia entre dispositivos;</li>
+      <li>Gerar relatórios e estatísticas de evolução glicêmica;</li>
+      <li>Enviar lembretes de medição por notificação push (somente se ativado pelo usuário);</li>
+      <li>Autenticar e identificar o usuário de forma segura;</li>
+      <li>Melhorar o aplicativo por meio de análise de uso anonimizada;</li>
+      <li>Exibir anúncios relevantes por meio do Google AdMob.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>4. Compartilhamento de dados</h2>
+    <p>
+      Os dados pessoais <strong>não são vendidos, alugados ou compartilhados</strong> com terceiros,
+      exceto com os seguintes prestadores de serviço necessários ao funcionamento do app:
+    </p>
+    <ul>
+      <li><strong>Google Firebase</strong> (Firestore e Authentication) — armazenamento em nuvem e autenticação;</li>
+      <li><strong>Firebase Analytics</strong> — análise de uso anonimizada;</li>
+      <li><strong>Google AdMob</strong> — exibição de publicidade;</li>
+      <li><strong>Google Sign-In</strong> — autenticação via conta Google.</li>
+    </ul>
+    <p>
+      Todos esses serviços são operados pela Google LLC e estão sujeitos à
+      <a href="https://policies.google.com/privacy" target="_blank">Política de Privacidade do Google</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>5. Armazenamento e segurança</h2>
+    <p>
+      Os dados são armazenados no <strong>Google Cloud Firestore</strong>, com regras de segurança
+      que garantem que cada usuário acesse apenas seus próprios registros. A comunicação entre
+      o aplicativo e os servidores é protegida por criptografia TLS.
+    </p>
+    <p>
+      Os dados de saúde não são compartilhados com outros usuários nem exibidos publicamente.
+    </p>
+  </section>
+
+  <section>
+    <h2>6. Retenção de dados</h2>
+    <p>
+      Os dados são mantidos enquanto o usuário possuir uma conta ativa no aplicativo.
+      Ao excluir a conta, todos os dados pessoais e registros de saúde são permanentemente removidos
+      dos servidores em até 30 dias.
+    </p>
+  </section>
+
+  <section>
+    <h2>7. Direitos do usuário (LGPD)</h2>
+    <p>Nos termos da LGPD, você tem direito a:</p>
+    <ul>
+      <li>Confirmar a existência do tratamento de seus dados;</li>
+      <li>Acessar seus dados pessoais;</li>
+      <li>Corrigir dados incompletos ou inexatos;</li>
+      <li>Solicitar a exclusão de seus dados;</li>
+      <li>Revogar o consentimento a qualquer momento;</li>
+      <li>Solicitar a portabilidade dos dados.</li>
+    </ul>
+    <p>
+      Para exercer qualquer um desses direitos, entre em contato pelo e-mail:
+      <a href="mailto:rogerinho.duraes@gmail.com">rogerinho.duraes@gmail.com</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>8. Crianças e adolescentes</h2>
+    <p>
+      O aplicativo não é direcionado a menores de 13 anos. Não coletamos
+      intencionalmente dados de crianças. Caso identifique que um menor forneceu
+      dados sem consentimento dos responsáveis, entre em contato para que possamos
+      remover as informações.
+    </p>
+  </section>
+
+  <section>
+    <h2>9. Publicidade</h2>
+    <p>
+      O aplicativo exibe anúncios fornecidos pelo <strong>Google AdMob</strong>.
+      O AdMob pode utilizar identificadores de publicidade do dispositivo para
+      personalizar os anúncios exibidos. Você pode optar por não receber anúncios
+      personalizados nas configurações do seu dispositivo.
+    </p>
+    <p>
+      Saiba mais em:
+      <a href="https://support.google.com/ads/answer/2662922" target="_blank">
+        Como o Google usa informações de sites e apps que usam serviços do Google
+      </a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>10. Alterações nesta política</h2>
+    <p>
+      Esta política pode ser atualizada periodicamente. Alterações significativas serão
+      comunicadas dentro do próprio aplicativo. Recomendamos que você revise este
+      documento regularmente.
+    </p>
+  </section>
+
+  <section>
+    <h2>11. Contato</h2>
+    <p>
+      Dúvidas, solicitações ou reclamações relacionadas à privacidade podem ser
+      enviadas para:<br />
+      <strong>Rogério Duraes</strong><br />
+      <a href="mailto:rogerinho.duraes@gmail.com">rogerinho.duraes@gmail.com</a>
+    </p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2026 Rogério Duraes — Minha Glicemia. Todos os direitos reservados.
+</footer>
+
+</body>
+</html>

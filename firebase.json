@@ -1,0 +1,33 @@
+{
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "minhaglicemia-618f2",
+          "appId": "1:474254388582:android:83d0d4e976d65e5e8c2ca7",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "minhaglicemia-618f2",
+          "appId": "1:474254388582:ios:db9c787b8b5964278c2ca7",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "minhaglicemia-618f2",
+          "configurations": {
+            "android": "1:474254388582:android:83d0d4e976d65e5e8c2ca7",
+            "ios": "1:474254388582:ios:db9c787b8b5964278c2ca7"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(convert --version)",
+      "Bash(python3 -c \"from PIL import Image; print\\('PIL ok'\\)\")",
+      "Bash(flutter devices *)",
+      "Bash(flutter run *)"
+    ]
+  }
+}
