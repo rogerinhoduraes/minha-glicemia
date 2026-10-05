@@ -43,3 +43,15 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Android release signing — NUNCA versionar
+android/key.properties
+*.jks
+*.keystore
+
+# Build via symlink (fora do iCloud) e ferramentas de IA
+/build
+.agents/
+.claude/
+.impeccable/
+skills-lock.json
