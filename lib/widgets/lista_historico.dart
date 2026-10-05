@@ -62,17 +62,10 @@ class ListaHistorico extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-            child: Row(children: [
-              Container(width: 4, height: 22,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF2563EB),
-                  borderRadius: BorderRadius.circular(4))),
-              const SizedBox(width: 10),
-              Text('Histórico',
-                style: GoogleFonts.nunitoSans(
-                  fontSize: 16, fontWeight: FontWeight.w800,
-                  color: const Color(0xFF0F172A))),
-            ]),
+            child: Text('Histórico',
+              style: GoogleFonts.nunitoSans(
+                fontSize: 16, fontWeight: FontWeight.w800,
+                color: const Color(0xFF1A1917))),
           ),
           Expanded(
             child: StreamBuilder<List<RegistroGlicemia>>(
@@ -82,10 +75,22 @@ class ListaHistorico extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (snap.hasError) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text('Erro: ${snap.error}',
-                        style: const TextStyle(color: Color(0xFFEF4444))),
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.cloud_off_outlined,
+                              size: 36, color: Color(0xFF9B9590)),
+                          const SizedBox(height: 12),
+                          Text('Não foi possível carregar o histórico.',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.nunitoSans(
+                                  fontSize: 14, color: const Color(0xFF6B6860))),
+                        ],
+                      ),
+                    ),
                   );
                 }
                 final registros = snap.data ?? [];
@@ -147,7 +152,6 @@ class _ItemRegistro extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border(left: BorderSide(color: cor, width: 4)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.04),
@@ -180,7 +184,7 @@ class _ItemRegistro extends StatelessWidget {
                         color: fundo, borderRadius: BorderRadius.circular(20)),
                       child: Text(label,
                         style: GoogleFonts.nunitoSans(
-                          fontSize: 11, fontWeight: FontWeight.w700, color: cor)),
+                          fontSize: 13, fontWeight: FontWeight.w700, color: cor)),
                     ),
                   ]),
                 ],
@@ -194,7 +198,7 @@ class _ItemRegistro extends StatelessWidget {
               children: [
                 _Acao(icon: Icons.edit_outlined,
                     color: const Color(0xFF2563EB), onTap: onEditar),
-                const SizedBox(height: 4),
+                const SizedBox(height: 6),
                 _Acao(icon: Icons.delete_outline,
                     color: const Color(0xFFEF4444), onTap: onDeletar),
               ],
@@ -217,11 +221,11 @@ class _Acao extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 36, height: 36,
+        width: 44, height: 44,
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(10)),
-        child: Icon(icon, size: 18, color: color),
+          borderRadius: BorderRadius.circular(12)),
+        child: Icon(icon, size: 20, color: color),
       ),
     );
   }

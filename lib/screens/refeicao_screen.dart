@@ -6,6 +6,8 @@ import '../services/glicemia_service.dart';
 import '../services/notificacao_service.dart';
 
 const _kPrimary = Color(0xFF2563EB);
+const _kHeader  = Color(0xFF1A1E2E);
+const _kStone   = Color(0xFFF2EFE9);
 
 class RefeicaoScreen extends StatefulWidget {
   final GlicemiaService service;
@@ -129,7 +131,7 @@ class _RefeicaoScreenState extends State<RefeicaoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _kPrimary,
+        backgroundColor: _kHeader,
         title: const Text('Tipos de Refeição'),
       ),
       body: StreamBuilder<List<TipoRefeicao>>(
@@ -200,7 +202,7 @@ class _RefeicaoScreenState extends State<RefeicaoScreen> {
       padding: EdgeInsets.fromLTRB(
           16, 12, 16, 12 + MediaQuery.of(context).viewInsets.bottom),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFFFAFAF8),
         boxShadow: [
           BoxShadow(
               color: Colors.black.withValues(alpha: 0.06),
@@ -268,8 +270,6 @@ class _ItemRefeicao extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        border: const Border(
-            left: BorderSide(color: _kPrimary, width: 4)),
         boxShadow: [
           BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
@@ -332,20 +332,20 @@ class _ItemRefeicao extends StatelessWidget {
             GestureDetector(
               onTap: temHorario ? onToggleLembrete : null,
               child: Container(
-                width: 34,
-                height: 34,
+                width: 44,
+                height: 44,
                 decoration: BoxDecoration(
                   color: ativo
                       ? _kPrimary.withValues(alpha: 0.1)
-                      : const Color(0xFFF1F5F9),
-                  borderRadius: BorderRadius.circular(10),
+                      : const Color(0xFFF2EFE9),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   ativo
                       ? Icons.notifications_active
                       : Icons.notifications_none,
                   color: ativo ? _kPrimary : const Color(0xFF94A3B8),
-                  size: 18,
+                  size: 20,
                 ),
               ),
             ),
@@ -354,13 +354,13 @@ class _ItemRefeicao extends StatelessWidget {
             GestureDetector(
               onTap: onDeletar,
               child: Container(
-                width: 34,
-                height: 34,
+                width: 44,
+                height: 44,
                 decoration: BoxDecoration(
                     color: const Color(0xFFFEF2F2),
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(12)),
                 child: const Icon(Icons.delete_outline,
-                    color: Color(0xFFEF4444), size: 18),
+                    color: Color(0xFFEF4444), size: 20),
               ),
             ),
             const SizedBox(width: 6),
@@ -368,11 +368,11 @@ class _ItemRefeicao extends StatelessWidget {
             ReorderableDragStartListener(
               index: index,
               child: Container(
-                width: 34,
-                height: 34,
+                width: 44,
+                height: 44,
                 decoration: BoxDecoration(
-                    color: const Color(0xFFF1F5F9),
-                    borderRadius: BorderRadius.circular(10)),
+                    color: _kStone,
+                    borderRadius: BorderRadius.circular(12)),
                 child: const Icon(Icons.drag_handle,
                     color: Color(0xFF94A3B8), size: 20),
               ),

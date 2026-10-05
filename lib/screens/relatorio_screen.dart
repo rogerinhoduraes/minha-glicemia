@@ -7,8 +7,8 @@ import '../services/analytics_service.dart';
 import '../services/glicemia_service.dart';
 import '../services/pdf_service.dart';
 
-const _kPrimary   = Color(0xFF2563EB);
-const _kGradStart = Color(0xFF1E3A8A);
+const _kPrimary = Color(0xFF2563EB);
+const _kHeader  = Color(0xFF1A1E2E);
 
 class RelatorioScreen extends StatefulWidget {
   final GlicemiaService service;
@@ -92,7 +92,7 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Erro ao gerar PDF: $e'),
+          content: const Text('Não foi possível gerar o PDF.'),
           backgroundColor: const Color(0xFFEF4444),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -109,7 +109,7 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _kGradStart,
+        backgroundColor: _kHeader,
         title: const Text('Relatório'),
         actions: [
           if (_exportando)
@@ -143,8 +143,8 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
       decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Color(0xFFE2E8F0))),
+        color: Color(0xFFFAFAF8),
+        border: Border(bottom: BorderSide(color: Color(0xFFE5E0D8))),
       ),
       child: Row(children: [
         const Icon(Icons.date_range_outlined, size: 18, color: _kPrimary),
@@ -177,9 +177,25 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
     if (_carregando) return const Center(child: CircularProgressIndicator());
 
     if (_erro) {
-      return const Center(
-        child: Text('Erro ao carregar dados.',
-            style: TextStyle(color: Color(0xFFEF4444))),
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.cloud_off_outlined, size: 36, color: Color(0xFF9B9590)),
+              const SizedBox(height: 12),
+              Text('Não foi possível carregar os dados.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.nunitoSans(fontSize: 14, color: const Color(0xFF6B6860))),
+              const SizedBox(height: 16),
+              FilledButton.tonal(
+                onPressed: _carregar,
+                child: const Text('Tentar novamente'),
+              ),
+            ],
+          ),
+        ),
       );
     }
 
@@ -384,14 +400,14 @@ class _DataChip extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
         decoration: BoxDecoration(
-          color: const Color(0xFFF1F5F9),
+          color: const Color(0xFFF2EFE9),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0xFFE2E8F0)),
+          border: Border.all(color: const Color(0xFFE5E0D8)),
         ),
         child: Row(children: [
           Text('$prefixo  ',
             style: GoogleFonts.nunitoSans(
-                fontSize: 11, fontWeight: FontWeight.w700,
+                fontSize: 13, fontWeight: FontWeight.w700,
                 color: const Color(0xFF94A3B8))),
           Expanded(
             child: Text(DateFormat('dd/MM/yy').format(data),
@@ -421,14 +437,6 @@ class _Card extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
-              Container(
-                width: 4, height: 22,
-                decoration: BoxDecoration(
-                  color: _kPrimary,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-              const SizedBox(width: 10),
               Icon(icone, size: 17, color: _kPrimary),
               const SizedBox(width: 6),
               Text(titulo,
@@ -465,7 +473,7 @@ class _StatBox extends StatelessWidget {
         child: Column(children: [
           Text(label,
             style: GoogleFonts.nunitoSans(
-                fontSize: 11, fontWeight: FontWeight.w700,
+                fontSize: 13, fontWeight: FontWeight.w700,
                 color: const Color(0xFF64748B))),
           const SizedBox(height: 4),
           Text(valor,
@@ -473,7 +481,7 @@ class _StatBox extends StatelessWidget {
                 fontSize: 26, fontWeight: FontWeight.w900, color: cor)),
           Text(unidade,
             style: GoogleFonts.nunitoSans(
-                fontSize: 10, color: const Color(0xFF94A3B8))),
+                fontSize: 12, color: const Color(0xFF94A3B8))),
         ]),
       ),
     );
@@ -490,7 +498,7 @@ class _PillInfo extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(label,
           style: GoogleFonts.nunitoSans(
-              fontSize: 11, fontWeight: FontWeight.w700,
+              fontSize: 13, fontWeight: FontWeight.w700,
               color: const Color(0xFF94A3B8))),
         const SizedBox(height: 2),
         Text(valor,
@@ -555,7 +563,7 @@ class _LegendaItem extends StatelessWidget {
       const SizedBox(width: 4),
       Text(label,
           style: GoogleFonts.nunitoSans(
-              fontSize: 10, fontWeight: FontWeight.w600,
+              fontSize: 12, fontWeight: FontWeight.w600,
               color: const Color(0xFF64748B))),
     ]);
   }
@@ -581,7 +589,7 @@ class _GraficoGlicemia extends StatelessWidget {
 
     double yPct(double v) => 1.0 - (v - yMin) / (yMax - yMin);
     final labelStyle = GoogleFonts.nunitoSans(
-        fontSize: 9.5, fontWeight: FontWeight.w600, color: _kGray);
+        fontSize: 11, fontWeight: FontWeight.w600, color: _kGray);
     final fmt = DateFormat('dd/MM');
 
     return SizedBox(

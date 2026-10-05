@@ -6,6 +6,7 @@ import '../services/analytics_service.dart';
 import '../services/glicemia_service.dart';
 
 const _kPrimary = Color(0xFF2563EB);
+const _kHeader  = Color(0xFF1A1E2E);
 
 class PacienteScreen extends StatefulWidget {
   final GlicemiaService service;
@@ -99,7 +100,7 @@ class _PacienteScreenState extends State<PacienteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: _kPrimary,
+        backgroundColor: _kHeader,
         title: const Text('Dados do Paciente'),
       ),
       body: _carregando
@@ -176,7 +177,7 @@ class _PacienteScreenState extends State<PacienteScreen> {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         gradient: const LinearGradient(
-          colors: [Color(0xFF1E3A8A), _kPrimary],
+          colors: [_kHeader, _kPrimary],
           begin: Alignment.topLeft, end: Alignment.bottomRight,
         ),
         boxShadow: [BoxShadow(

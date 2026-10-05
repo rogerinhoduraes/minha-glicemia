@@ -1,9 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-// IDs de teste do AdMob — substitua pelos seus IDs reais antes de publicar
-const _adUnitIdAndroid = 'ca-app-pub-3940256099942544/6300978111';
-const _adUnitIdIos = 'ca-app-pub-3940256099942544/2934735716';
+const _adUnitIdAndroid = 'ca-app-pub-4791753177590529/4305778378';
+const _adUnitIdIos = 'ca-app-pub-4791753177590529/5836379677';
+
+// IDs de teste oficiais do Google — evitam tráfego inválido em debug.
+const _testAdUnitIdAndroid = 'ca-app-pub-3940256099942544/6300978111';
+const _testAdUnitIdIos = 'ca-app-pub-3940256099942544/2934735716';
 
 class AdBanner extends StatefulWidget {
   const AdBanner({super.key});
@@ -32,9 +36,12 @@ class _AdBannerState extends State<AdBanner> {
     if (tamanho == null || !mounted) return;
 
     final isIos = Theme.of(context).platform == TargetPlatform.iOS;
+    final adUnitId = kDebugMode
+        ? (isIos ? _testAdUnitIdIos : _testAdUnitIdAndroid)
+        : (isIos ? _adUnitIdIos : _adUnitIdAndroid);
 
     _banner = BannerAd(
-      adUnitId: isIos ? _adUnitIdIos : _adUnitIdAndroid,
+      adUnitId: adUnitId,
       size: tamanho,
       request: const AdRequest(),
       listener: BannerAdListener(

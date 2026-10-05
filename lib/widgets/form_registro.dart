@@ -79,7 +79,7 @@ class _FormRegistroState extends State<FormRegistro> {
         _snack('Registro salvo!');
       }
     } catch (e) {
-      if (mounted) _snack('Erro: $e', error: true);
+      if (mounted) _snack('Não foi possível salvar. Tente novamente.', error: true);
     } finally {
       if (mounted) setState(() => _salvando = false);
     }
@@ -118,19 +118,11 @@ class _FormRegistroState extends State<FormRegistro> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(children: [
-                  Container(
-                    width: 4, height: 22,
-                    decoration: BoxDecoration(
-                      color: editando ? const Color(0xFFF59E0B) : const Color(0xFF2563EB),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
                   Text(
                     editando ? 'Editar Registro' : 'Nova Medição',
                     style: GoogleFonts.nunitoSans(
                       fontSize: 16, fontWeight: FontWeight.w800,
-                      color: const Color(0xFF0F172A),
+                      color: const Color(0xFF1A1917),
                     ),
                   ),
                   if (editando) ...[
