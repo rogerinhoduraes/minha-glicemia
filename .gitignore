@@ -55,3 +55,7 @@ android/key.properties
 .claude/
 .impeccable/
 skills-lock.json
+
+# Config do Firebase (por ambiente)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
