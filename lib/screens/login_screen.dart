@@ -1,12 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../services/analytics_service.dart';
 import '../services/auth_service.dart';
 
 const _kPrimary  = Color(0xFF2563EB);
-const _kDark     = Color(0xFF1E3A8A);
-const _kBg       = Color(0xFFF1F5F9);
-const _kMuted    = Color(0xFF64748B);
+const _kDark     = Color(0xFF1A1E2E);
+const _kBg       = Color(0xFFF2EFE9);
+const _kMuted    = Color(0xFF6B6860);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -105,6 +106,18 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Future<void> _entrarComApple() async {
+    setState(() => _loading = true);
+    try {
+      final user = await _auth.signInWithApple();
+      if (user != null) AnalyticsService.logLogin('apple');
+    } catch (e) {
+      _mostrarErro('Erro ao entrar com Apple.');
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
   Future<void> _esqueceuSenha() async {
     final email = _emailCtrl.text.trim();
     if (email.isEmpty) {
@@ -138,13 +151,13 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 // ── Header ──────────────────────────────────────────────────
                 const SizedBox(height: 16),
-                const Icon(Icons.bloodtype, size: 72, color: _kDark),
+                const Icon(Icons.water_drop_outlined, size: 72, color: _kDark),
                 const SizedBox(height: 14),
                 Text('Minha Glicemia',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.nunitoSans(
                         fontSize: 30, fontWeight: FontWeight.w900,
-                        color: const Color(0xFF0F172A))),
+                        color: _kDark)),
                 const SizedBox(height: 6),
                 Text('Monitore sua glicemia com facilidade',
                     textAlign: TextAlign.center,
@@ -155,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // ── Toggle login / cadastro ──────────────────────────────────
                 Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE2E8F0),
+                    color: const Color(0xFFE5E0D8),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   padding: const EdgeInsets.all(4),
@@ -245,7 +258,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: _entrarComGoogle,
                     style: OutlinedButton.styleFrom(
                       minimumSize: const Size(double.infinity, 56),
-                      side: const BorderSide(color: Color(0xFFE2E8F0), width: 2),
+                      side: const BorderSide(color: Color(0xFFE5E0D8), width: 2),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14)),
                       foregroundColor: const Color(0xFF0F172A),
@@ -256,6 +269,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: Color(0xFF4285F4)),
                     label: const Text('Continuar com Google'),
                   ),
+                  if (defaultTargetPlatform == TargetPlatform.iOS) ...[
+                    const SizedBox(height: 12),
+                    OutlinedButton.icon(
+                      onPressed: _entrarComApple,
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 56),
+                        side: const BorderSide(color: Color(0xFFE5E0D8), width: 2),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
+                        foregroundColor: const Color(0xFF0F172A),
+                        textStyle: GoogleFonts.nunitoSans(
+                            fontSize: 16, fontWeight: FontWeight.w700),
+                      ),
+                      icon: const Icon(Icons.apple, size: 24),
+                      label: const Text('Continuar com Apple'),
+                    ),
+                  ],
                 ],
               ],
             ),

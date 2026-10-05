@@ -114,4 +114,23 @@ class GlicemiaService {
     }
     await batch.commit();
   }
+
+  /// Remove todos os dados do usuário (registros, refeições e perfil).
+  Future<void> deletarTodosDados() async {
+    final perfil = _db
+        .collection('usuarios')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('perfil');
+    for (final col in [_col, _refeicoesCol, perfil]) {
+      while (true) {
+        final snap = await col.limit(400).get();
+        if (snap.docs.isEmpty) break;
+        final batch = _db.batch();
+        for (final d in snap.docs) {
+          batch.delete(d.reference);
+        }
+        await batch.commit();
+      }
+    }
+  }
 }
