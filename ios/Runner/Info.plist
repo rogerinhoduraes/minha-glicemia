@@ -66,9 +66,17 @@
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
 		</array>
-		<!-- AdMob App ID — substitua pelo seu ID real antes de publicar -->
 		<key>GADApplicationIdentifier</key>
-		<string>ca-app-pub-3940256099942544~1458002511</string>
+		<string>ca-app-pub-4791753177590529~4577241111</string>
+		<key>NSUserTrackingUsageDescription</key>
+		<string>Usamos o identificador do dispositivo para exibir anúncios mais relevantes. Seus dados de glicemia nunca são usados para esse fim.</string>
+		<key>SKAdNetworkItems</key>
+		<array>
+			<dict>
+				<key>SKAdNetworkIdentifier</key>
+				<string>cstr6suwn9.skadnetwork</string>
+			</dict>
+		</array>
 		<key>UIStatusBarHidden</key>
 		<false/>
 	</dict>
