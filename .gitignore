@@ -59,3 +59,6 @@ skills-lock.json
 # Config do Firebase (por ambiente)
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
+
+# Cache do Kotlin
+.kotlin/
