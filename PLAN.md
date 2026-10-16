@@ -14,8 +14,8 @@ links: [anuncios]
 ## Cadastrar paciente e refeições {#cadastros}
 tech: PacienteScreen, RefeicaoScreen, lembretes via NotificacaoService
 files: [lib/screens/paciente_screen.dart, lib/screens/refeicao_screen.dart, lib/services/notificacao_service.dart]
-- [ ] Trocar onReorder obsoleto por onReorderItem {#onreorder}
-  from: agent
+- [x] Trocar onReorder obsoleto por onReorderItem {#onreorder}
+  by: claude
 
 ## Entrar e gerenciar a conta {#conta}
 tech: AuthService (e-mail, Google, Apple), exclusão de conta

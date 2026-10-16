@@ -168,8 +168,7 @@ class _RefeicaoScreenState extends State<RefeicaoScreen> {
                         padding:
                             const EdgeInsets.fromLTRB(16, 16, 16, 0),
                         itemCount: lista.length,
-                        onReorder: (oldIndex, newIndex) {
-                          if (newIndex > oldIndex) newIndex--;
+                        onReorderItem: (oldIndex, newIndex) {
                           final atualizada =
                               List<TipoRefeicao>.from(lista);
                           final item = atualizada.removeAt(oldIndex);
