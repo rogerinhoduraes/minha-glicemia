@@ -253,24 +253,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   ]),
                   const SizedBox(height: 20),
 
-                  // ── Google ───────────────────────────────────────────────
-                  OutlinedButton.icon(
-                    onPressed: _entrarComGoogle,
-                    style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(double.infinity, 56),
-                      side: const BorderSide(color: Color(0xFFE5E0D8), width: 2),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                      foregroundColor: const Color(0xFF0F172A),
-                      textStyle: GoogleFonts.nunitoSans(
-                          fontSize: 16, fontWeight: FontWeight.w700),
+                  // ── Google (oculto no iOS até configurar CLIENT_ID/URL scheme) ──
+                  if (defaultTargetPlatform != TargetPlatform.iOS)
+                    OutlinedButton.icon(
+                      onPressed: _entrarComGoogle,
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 56),
+                        side: const BorderSide(color: Color(0xFFE5E0D8), width: 2),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
+                        foregroundColor: const Color(0xFF0F172A),
+                        textStyle: GoogleFonts.nunitoSans(
+                            fontSize: 16, fontWeight: FontWeight.w700),
+                      ),
+                      icon: const Icon(Icons.g_mobiledata, size: 26,
+                          color: Color(0xFF4285F4)),
+                      label: const Text('Continuar com Google'),
                     ),
-                    icon: const Icon(Icons.g_mobiledata, size: 26,
-                        color: Color(0xFF4285F4)),
-                    label: const Text('Continuar com Google'),
-                  ),
                   if (defaultTargetPlatform == TargetPlatform.iOS) ...[
-                    const SizedBox(height: 12),
                     OutlinedButton.icon(
                       onPressed: _entrarComApple,
                       style: OutlinedButton.styleFrom(
