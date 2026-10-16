@@ -102,7 +102,7 @@ class _FormRegistroState extends State<FormRegistro> {
       builder: (context, snap) {
         final refeicoes = snap.data ?? [];
         String? atual = _refeicao;
-        if (atual != null && refeicoes.isNotEmpty && !refeicoes.any((r) => r.nome == atual)) {
+        if (atual != null && !refeicoes.any((r) => r.nome == atual)) {
           atual = null;
         }
         if (atual == null && refeicoes.isNotEmpty) {

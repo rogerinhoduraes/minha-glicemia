@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/registro_glicemia.dart';
@@ -47,13 +49,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                SliverFillRemaining(
-                  hasScrollBody: true,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-                    child: ListaHistorico(
-                      service: widget.service,
-                      onEditar: _iniciarEdicao,
+                // Ocupa o restante da tela, com altura mínima para telas baixas.
+                SliverLayoutBuilder(
+                  builder: (context, c) => SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: math.max(
+                          c.viewportMainAxisExtent - c.precedingScrollExtent, 360),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+                        child: ListaHistorico(
+                          service: widget.service,
+                          onEditar: _iniciarEdicao,
+                        ),
+                      ),
                     ),
                   ),
                 ),

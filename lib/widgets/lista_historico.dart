@@ -96,16 +96,19 @@ class ListaHistorico extends StatelessWidget {
                 final registros = snap.data ?? [];
                 if (registros.isEmpty) {
                   return Center(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.monitor_heart_outlined,
-                            size: 48, color: Colors.grey.shade300),
-                        const SizedBox(height: 12),
-                        Text('Nenhuma medição ainda',
-                          style: GoogleFonts.nunitoSans(
-                            fontSize: 15, color: const Color(0xFF94A3B8))),
-                      ],
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.monitor_heart_outlined,
+                              size: 48, color: Colors.grey.shade300),
+                          const SizedBox(height: 12),
+                          Text('Nenhuma medição ainda',
+                            style: GoogleFonts.nunitoSans(
+                              fontSize: 15, color: const Color(0xFF94A3B8))),
+                        ],
+                      ),
                     ),
                   );
                 }
