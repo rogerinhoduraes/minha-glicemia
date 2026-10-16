@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import '../services/ads_service.dart';
+
 const _adUnitIdAndroid = 'ca-app-pub-4791753177590529/4305778378';
 const _adUnitIdIos = 'ca-app-pub-4791753177590529/5836379677';
 
@@ -20,12 +22,21 @@ class _AdBannerState extends State<AdBanner> {
   BannerAd? _banner;
   bool _carregado = false;
   bool _iniciou = false;
+  bool _pediu = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_iniciou) {
       _iniciou = true;
+      AdsService.pronto.addListener(_aoFicarPronto);
+      _aoFicarPronto();
+    }
+  }
+
+  void _aoFicarPronto() {
+    if (AdsService.pronto.value && !_pediu) {
+      _pediu = true;
       _carregarAd();
     }
   }
@@ -59,6 +70,7 @@ class _AdBannerState extends State<AdBanner> {
 
   @override
   void dispose() {
+    AdsService.pronto.removeListener(_aoFicarPronto);
     _banner?.dispose();
     super.dispose();
   }

@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../models/registro_glicemia.dart';
 import '../services/analytics_service.dart';
 import '../services/glicemia_service.dart';
-import '../widgets/ad_banner.dart';
 import '../widgets/form_registro.dart';
 import '../widgets/lista_historico.dart';
 
@@ -61,7 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          const AdBanner(),
         ],
       ),
     );

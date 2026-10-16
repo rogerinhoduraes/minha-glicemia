@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:printing/printing.dart';
 import '../models/registro_glicemia.dart';
+import '../services/ads_service.dart';
 import '../services/analytics_service.dart';
 import '../services/glicemia_service.dart';
 import '../services/pdf_service.dart';
@@ -76,6 +77,7 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
     if (_registros == null || _exportando) return;
     setState(() => _exportando = true);
     try {
+      await AdsService.mostrarIntersticial();
       final paciente = await widget.service.buscarPaciente();
       final bytes = await PdfService.gerarRelatorio(
         registros: _registros!,

@@ -2,8 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../services/ads_service.dart';
 import '../services/auth_service.dart';
 import '../services/glicemia_service.dart';
+import '../widgets/ad_banner.dart';
 import 'home_screen.dart';
 import 'paciente_screen.dart';
 import 'refeicao_screen.dart';
@@ -25,6 +27,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _service.garantirRefeicoesIniciais();
+    WidgetsBinding.instance.addPostFrameCallback((_) => AdsService.init());
   }
 
   void _onTabTap(int index) {
@@ -88,11 +91,18 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _tabIndex,
+      body: Column(
         children: [
-          HomeScreen(service: _service),
-          RelatorioScreen(service: _service),
+          Expanded(
+            child: IndexedStack(
+              index: _tabIndex,
+              children: [
+                HomeScreen(service: _service),
+                RelatorioScreen(service: _service),
+              ],
+            ),
+          ),
+          const AdBanner(),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -177,6 +187,16 @@ class _MaisSheet extends StatelessWidget {
                   mode: LaunchMode.externalApplication);
               },
             ),
+            if (AdsService.precisaOpcoesPrivacidade)
+              ListTile(
+                leading: const Icon(Icons.tune_outlined, color: Color(0xFF2563EB)),
+                title: Text('Privacidade dos anúncios',
+                  style: GoogleFonts.nunitoSans(fontSize: 15, fontWeight: FontWeight.w700)),
+                onTap: () {
+                  Navigator.pop(context);
+                  AdsService.abrirOpcoesPrivacidade();
+                },
+              ),
             const Divider(indent: 16, endIndent: 16, height: 24),
             ListTile(
               leading: const Icon(Icons.logout, color: Color(0xFFEF4444)),
