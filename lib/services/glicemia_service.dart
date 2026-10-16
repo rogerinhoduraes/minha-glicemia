@@ -105,6 +105,9 @@ class GlicemiaService {
     ('Jantar', '19:00'),
   ];
 
+  /// Refeições criadas no primeiro acesso; não podem ser removidas.
+  static final nomesPadrao = {for (final (nome, _) in _refeicoesDefault) nome};
+
   Future<void> garantirRefeicoesIniciais() async {
     final snap = await _refeicoesCol.limit(1).get();
     if (snap.docs.isNotEmpty) return;

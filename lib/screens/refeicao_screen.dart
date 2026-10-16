@@ -182,7 +182,9 @@ class _RefeicaoScreenState extends State<RefeicaoScreen> {
                             refeicao: r,
                             onEditarHorario: () => _editarHorario(r),
                             onToggleLembrete: () => _toggleLembrete(r),
-                            onDeletar: () => _deletar(r),
+                            onDeletar: GlicemiaService.nomesPadrao.contains(r.nome)
+                                ? null
+                                : () => _deletar(r),
                             index: i,
                           );
                         },
@@ -199,7 +201,9 @@ class _RefeicaoScreenState extends State<RefeicaoScreen> {
   Widget _painelAdicionar(List<TipoRefeicao> atual) {
     return Container(
       padding: EdgeInsets.fromLTRB(
-          16, 12, 16, 12 + MediaQuery.of(context).viewInsets.bottom),
+          16, 12, 16,
+          12 + MediaQuery.of(context).viewInsets.bottom +
+              MediaQuery.of(context).padding.bottom),
       decoration: BoxDecoration(
         color: const Color(0xFFFAFAF8),
         boxShadow: [
@@ -247,7 +251,7 @@ class _ItemRefeicao extends StatelessWidget {
   final TipoRefeicao refeicao;
   final VoidCallback onEditarHorario;
   final VoidCallback onToggleLembrete;
-  final VoidCallback onDeletar;
+  final VoidCallback? onDeletar; // null nas refeições padrão
   final int index;
 
   const _ItemRefeicao({
@@ -255,7 +259,7 @@ class _ItemRefeicao extends StatelessWidget {
     required this.refeicao,
     required this.onEditarHorario,
     required this.onToggleLembrete,
-    required this.onDeletar,
+    this.onDeletar,
     required this.index,
   });
 
@@ -327,6 +331,22 @@ class _ItemRefeicao extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Delete (oculto nas refeições padrão)
+            if (onDeletar != null) ...[
+              GestureDetector(
+                onTap: onDeletar,
+                child: Container(
+                  width: 44,
+                  height: 44,
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFFEF2F2),
+                      borderRadius: BorderRadius.circular(12)),
+                  child: const Icon(Icons.delete_outline,
+                      color: Color(0xFFEF4444), size: 20),
+                ),
+              ),
+              const SizedBox(width: 6),
+            ],
             // Bell toggle
             GestureDetector(
               onTap: temHorario ? onToggleLembrete : null,
@@ -346,20 +366,6 @@ class _ItemRefeicao extends StatelessWidget {
                   color: ativo ? _kPrimary : const Color(0xFF94A3B8),
                   size: 20,
                 ),
-              ),
-            ),
-            const SizedBox(width: 6),
-            // Delete
-            GestureDetector(
-              onTap: onDeletar,
-              child: Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                    color: const Color(0xFFFEF2F2),
-                    borderRadius: BorderRadius.circular(12)),
-                child: const Icon(Icons.delete_outline,
-                    color: Color(0xFFEF4444), size: 20),
               ),
             ),
             const SizedBox(width: 6),
