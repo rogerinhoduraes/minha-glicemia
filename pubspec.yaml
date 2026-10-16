@@ -22,7 +22,7 @@ dependencies:
   firebase_analytics: ^12.6.0
 
   # Autenticação
-  google_sign_in: ^6.2.2
+  google_sign_in: ^7.2.0
 
   # AdMob
   google_mobile_ads: ^9.1.0

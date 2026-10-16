@@ -22,6 +22,10 @@ files: [lib/screens/paciente_screen.dart, lib/screens/refeicao_screen.dart, lib/
 ## Entrar e gerenciar a conta {#conta}
 tech: AuthService (e-mail, Google, Apple), exclusão de conta
 files: [lib/screens/login_screen.dart, lib/screens/main_screen.dart, lib/services/auth_service.dart, firestore.rules]
+- [x] Atualizar login Google para google_sign_in 7 {#google-sign-in-7}
+  by: claude
+- [ ] Configurar login Google no iOS (CLIENT_ID + URL scheme) {#google-ios}
+  from: agent
 
 ## Mostrar anúncios {#anuncios}
 tech: google_mobile_ads — UMP (consentimento), ATT, banner, intersticial

@@ -27,14 +27,34 @@ class AuthService {
   Future<void> sendPasswordReset(String email) =>
       _auth.sendPasswordResetEmail(email: email.trim());
 
-  Future<User?> signInWithGoogle() async {
-    final account = await GoogleSignIn().signIn();
-    if (account == null) return null;
+  static Future<void>? _googleInit;
 
-    final googleAuth = await account.authentication;
+  Future<void> _initGoogle() => _googleInit ??=
+      GoogleSignIn.instance.initialize().catchError((Object e) {
+        _googleInit = null;
+        throw e;
+      });
+
+  /// Sai da sessão Google sem bloquear o fluxo se o plugin falhar.
+  Future<void> _signOutGoogle() async {
+    try {
+      await _initGoogle();
+      await GoogleSignIn.instance.signOut();
+    } catch (_) {}
+  }
+
+  Future<User?> signInWithGoogle() async {
+    await _initGoogle();
+    final GoogleSignInAccount account;
+    try {
+      account = await GoogleSignIn.instance.authenticate();
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) return null;
+      rethrow;
+    }
+
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
+      idToken: account.authentication.idToken,
     );
     final result = await _auth.signInWithCredential(credential);
     return result.user;
@@ -69,7 +89,7 @@ class AuthService {
   }
 
   Future<void> signOut() async {
-    await GoogleSignIn().signOut();
+    await _signOutGoogle();
     await _auth.signOut();
   }
 
@@ -90,7 +110,7 @@ class AuthService {
       await _auth.revokeTokenWithAuthorizationCode(appleCode);
     }
     await user.delete();
-    await GoogleSignIn().signOut();
+    await _signOutGoogle();
     return true;
   }
 }
