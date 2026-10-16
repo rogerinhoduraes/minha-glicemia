@@ -5,6 +5,8 @@ import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
+import 'compra_service.dart';
+
 // IDs dos blocos intersticiais criados no console do AdMob.
 // Vazios = intersticial desativado em release.
 const _intersticialAndroid = 'ca-app-pub-4791753177590529/2039297321';
@@ -21,6 +23,8 @@ const _forcarEea = bool.fromEnvironment('ADS_EEA');
 // Em aparelho físico a simulação exige o ID de teste que o SDK imprime no log:
 // `--dart-define=ADS_TEST_DEVICE=<id>` (emuladores e simuladores dispensam).
 const _dispositivoTeste = String.fromEnvironment('ADS_TEST_DEVICE');
+// `--dart-define=SEM_ANUNCIOS=true` não carrega anúncios (capturas de tela da loja).
+const _semAnuncios = bool.fromEnvironment('SEM_ANUNCIOS');
 
 /// Consentimento (UMP), ATT e inicialização do SDK do AdMob, além do intersticial.
 class AdsService {
@@ -36,8 +40,17 @@ class AdsService {
 
   /// Chamar com o app já visível (formulário de consentimento e ATT precisam de UI ativa).
   static Future<void> init() async {
-    if (_iniciou) return;
+    if (_iniciou || (kDebugMode && _semAnuncios)) return;
     _iniciou = true;
+    await CompraService.init();
+    if (CompraService.semAnuncios.value) return;
+    // Comprou durante a sessão: para de exibir anúncios na hora.
+    CompraService.semAnuncios.addListener(() {
+      if (!CompraService.semAnuncios.value) return;
+      pronto.value = false;
+      _intersticial?.dispose();
+      _intersticial = null;
+    });
     await _coletarConsentimento();
     if (Platform.isIOS &&
         await AppTrackingTransparency.trackingAuthorizationStatus ==
@@ -89,7 +102,7 @@ class AdsService {
   }
 
   static void _carregarIntersticial() {
-    if (!pronto.value || _intersticial != null || _intersticialId.isEmpty) return;
+    if (CompraService.semAnuncios.value || !pronto.value || _intersticial != null || _intersticialId.isEmpty) return;
     InterstitialAd.load(
       adUnitId: _intersticialId,
       request: const AdRequest(),
@@ -105,6 +118,7 @@ class AdsService {
   static Future<void> mostrarIntersticial() async {
     final ad = _intersticial;
     final ultimo = _ultimoIntersticial;
+    if (CompraService.semAnuncios.value) return;
     if (ad == null) {
       _carregarIntersticial();
       return;

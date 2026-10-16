@@ -45,6 +45,9 @@ files: [lib/services/ads_service.dart, lib/widgets/ad_banner.dart, lib/main.dart
 - [x] app-ads.txt publicado em rogerinhoduraes.github.io {#app-ads}
 - [x] Atualizar Firebase (core 4 / Firestore 6) e AdMob 9 {#deps}
   by: claude
+- [~] Vender a remoção de anúncios (compra única) e aceitar cupons das lojas {#remover-anuncios}
+  by: claude
+  tech: in_app_purchase, produto `remover_anuncios`, códigos de oferta (Apple) e promocionais (Google)
 
 ## Publicar nas lojas {#lojas}
 tech: assinatura Android, entitlements/ATT/SKAdNetwork iOS, assets de loja
@@ -55,7 +58,13 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
   by: claude
 - [x] Assinar iOS com o time S75AESUE2H e ativar o provedor Apple no Firebase {#ios-time}
   by: claude
+- [x] Criar o app no App Store Connect e enviar o build 1.0.0 (1) {#asc-build1}
+  by: claude
+- [ ] Preencher a ficha da App Store (capturas iPhone e iPad, textos, privacidade, conta demo) {#asc-ficha}
+  from: agent
 
 ## decisions
 - 2026-10-16: intersticial só ao exportar PDF (antes do compartilhamento, cooldown de 3 min) — não após salvar medição, que é a ação central e frequente.
 - 2026-10-16: banner único no MainScreen (cobre Início e Relatório); IndexedStack manteria dois banners montados, um invisível.
+- 2026-10-16: remoção de anúncios é compra única (não assinatura), vinculada à conta da loja (Apple ID / conta Google) e restaurada pela loja — sem validação em servidor.
+- 2026-10-16: cupons de isenção usam os códigos das lojas (oferta na Apple, promocionais no Google); cupom próprio no app violaria a diretriz 3.1.1 da Apple.

@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../services/ads_service.dart';
 import '../services/auth_service.dart';
+import '../services/compra_service.dart';
 import '../services/glicemia_service.dart';
 import '../widgets/ad_banner.dart';
 import 'home_screen.dart';
@@ -42,6 +43,7 @@ class _MainScreenState extends State<MainScreen> {
   void _abrirMais() {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: const Color(0xFFFAFAF8),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -50,8 +52,32 @@ class _MainScreenState extends State<MainScreen> {
         service: _service,
         onSignOut: () => _auth.signOut(),
         onDeleteAccount: _excluirConta,
+        onComprar: _comprar,
+        onRestaurar: _restaurar,
       ),
     );
+  }
+
+  Future<void> _comprar() async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      if (!await CompraService.comprar()) {
+        messenger.showSnackBar(const SnackBar(
+          content: Text('Compra indisponível no momento. Tente novamente mais tarde.')));
+      }
+    } catch (_) {
+      messenger.showSnackBar(const SnackBar(content: Text('Não foi possível iniciar a compra.')));
+    }
+  }
+
+  Future<void> _restaurar() async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await CompraService.restaurar();
+      messenger.showSnackBar(const SnackBar(content: Text('Compras restauradas.')));
+    } catch (_) {
+      messenger.showSnackBar(const SnackBar(content: Text('Não foi possível restaurar as compras.')));
+    }
   }
 
   Future<void> _excluirConta() async {
@@ -102,7 +128,11 @@ class _MainScreenState extends State<MainScreen> {
               ],
             ),
           ),
-          const AdBanner(),
+          ValueListenableBuilder<bool>(
+            valueListenable: CompraService.semAnuncios,
+            builder: (_, semAnuncios, _) =>
+                semAnuncios ? const SizedBox.shrink() : const AdBanner(),
+          ),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -134,16 +164,20 @@ class _MaisSheet extends StatelessWidget {
   final GlicemiaService service;
   final VoidCallback onSignOut;
   final VoidCallback onDeleteAccount;
+  final VoidCallback onComprar;
+  final VoidCallback onRestaurar;
   const _MaisSheet({
     required this.service,
     required this.onSignOut,
     required this.onDeleteAccount,
+    required this.onComprar,
+    required this.onRestaurar,
   });
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
+      child: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 12, bottom: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -197,6 +231,50 @@ class _MaisSheet extends StatelessWidget {
                   AdsService.abrirOpcoesPrivacidade();
                 },
               ),
+            ValueListenableBuilder<bool>(
+              valueListenable: CompraService.semAnuncios,
+              builder: (context, semAnuncios, _) {
+                if (semAnuncios) return const SizedBox.shrink();
+                return Column(children: [
+                  ValueListenableBuilder(
+                    valueListenable: CompraService.produto,
+                    builder: (context, produto, _) => ListTile(
+                      leading: const Icon(Icons.block, color: Color(0xFF2563EB)),
+                      title: Text('Remover anúncios',
+                        style: GoogleFonts.nunitoSans(fontSize: 15, fontWeight: FontWeight.w700)),
+                      trailing: produto == null
+                          ? null
+                          : Text(produto.price,
+                              style: GoogleFonts.nunitoSans(
+                                fontSize: 15, fontWeight: FontWeight.w800,
+                                color: const Color(0xFF2563EB))),
+                      onTap: () {
+                        Navigator.pop(context);
+                        onComprar();
+                      },
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.redeem_outlined, color: Color(0xFF2563EB)),
+                    title: Text('Resgatar cupom',
+                      style: GoogleFonts.nunitoSans(fontSize: 15, fontWeight: FontWeight.w700)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      CompraService.resgatarCupom();
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.restore, color: Color(0xFF2563EB)),
+                    title: Text('Restaurar compras',
+                      style: GoogleFonts.nunitoSans(fontSize: 15, fontWeight: FontWeight.w700)),
+                    onTap: () {
+                      Navigator.pop(context);
+                      onRestaurar();
+                    },
+                  ),
+                ]);
+              },
+            ),
             const Divider(indent: 16, endIndent: 16, height: 24),
             ListTile(
               leading: const Icon(Icons.logout, color: Color(0xFFEF4444)),

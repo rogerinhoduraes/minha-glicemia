@@ -10,6 +10,7 @@ import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 import 'screens/main_screen.dart';
 import 'services/analytics_service.dart';
+import 'services/compra_service.dart';
 import 'services/notificacao_service.dart';
 
 void main() async {
@@ -17,6 +18,7 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await initializeDateFormatting('pt_BR');
   await NotificacaoService.init();
+  await CompraService.init();
   runApp(const App());
 }
 
