@@ -62,9 +62,10 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
   by: claude
 - [~] Preencher a ficha da App Store (capturas iPhone e iPad, textos, privacidade, conta demo) {#asc-ficha}
   by: claude
-  tech: feito textos, categoria, idade, preço, privacidade; faltam capturas 6,9" e iPad 13" (docs/store_assets/ios), enviar build 1.0.0 (2), captura da compra e enviar para revisão
-- [ ] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
+  tech: feito textos, categoria, idade, preço, privacidade, capturas iPhone 6,3" (docs/store_assets/ios/iphone_6_3) e iPad 13", build 1.0.0 (2) enviado; faltam selecionar o build, captura da compra no IAP e enviar para revisão
+- [!] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
   from: agent
+  tech: solicitação ainda não enviada; dono da conta precisa preencher o formulário de transferência (código de verificação ou ID da transação)
 
 ## decisions
 - 2026-10-16: intersticial só ao exportar PDF (antes do compartilhamento, cooldown de 3 min) — não após salvar medição, que é a ação central e frequente.
