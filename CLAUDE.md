@@ -24,7 +24,7 @@ flutter analyze
 flutter test
 
 # Run single test file
-flutter test test/widget_test.dart
+flutter test test/models_test.dart
 
 # Regenerate launcher icons and splash screen
 dart run flutter_launcher_icons

@@ -5,15 +5,21 @@ import '../models/registro_glicemia.dart';
 import '../models/tipo_refeicao.dart';
 
 class GlicemiaService {
-  final _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db;
+  final String Function() _uid;
+
+  /// [db] e [uid] são injetáveis para testes; por padrão usam o Firebase real.
+  GlicemiaService({FirebaseFirestore? db, String Function()? uid})
+      : _db = db ?? FirebaseFirestore.instance,
+        _uid = uid ?? (() => FirebaseAuth.instance.currentUser!.uid);
 
   CollectionReference<Map<String, dynamic>> get _col {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final uid = _uid();
     return _db.collection('usuarios').doc(uid).collection('registros');
   }
 
   DocumentReference<Map<String, dynamic>> get _pacienteDoc {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final uid = _uid();
     return _db.collection('usuarios').doc(uid).collection('perfil').doc('paciente');
   }
 
@@ -58,7 +64,7 @@ class GlicemiaService {
       _pacienteDoc.set(p.toMap(), SetOptions(merge: true));
 
   CollectionReference<Map<String, dynamic>> get _refeicoesCol {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final uid = _uid();
     return _db.collection('usuarios').doc(uid).collection('refeicoes');
   }
 
@@ -119,7 +125,7 @@ class GlicemiaService {
   Future<void> deletarTodosDados() async {
     final perfil = _db
         .collection('usuarios')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc(_uid())
         .collection('perfil');
     for (final col in [_col, _refeicoesCol, perfil]) {
       while (true) {

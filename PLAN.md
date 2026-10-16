@@ -2,7 +2,9 @@
 
 ## Registrar medições {#registro}
 tech: HomeScreen + FormRegistro + ListaHistorico + GlicemiaService
-files: [lib/screens/home_screen.dart, lib/widgets/form_registro.dart, lib/widgets/lista_historico.dart, lib/services/glicemia_service.dart, lib/models/**]
+files: [lib/screens/home_screen.dart, lib/widgets/form_registro.dart, lib/widgets/lista_historico.dart, lib/services/glicemia_service.dart, lib/models/**, test/**]
+- [x] Testes dos models e do GlicemiaService {#testes}
+  by: claude
 links: [anuncios]
 
 ## Gerar relatório em PDF {#relatorio}
