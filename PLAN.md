@@ -41,6 +41,8 @@ tech: assinatura Android, entitlements/ATT/SKAdNetwork iOS, assets de loja
 files: [android/**, ios/**, docs/**, pubspec.yaml]
 - [ ] Restaurar CODE_SIGN_ENTITLEMENTS antes de enviar à App Store {#entitlements}
   from: agent
+- [x] Atualizar Gradle 9.3.1, AGP 9.1.0 e Kotlin 2.4.0 {#gradle}
+  by: claude
 
 ## decisions
 - 2026-10-16: intersticial só ao exportar PDF (antes do compartilhamento, cooldown de 3 min) — não após salvar medição, que é a ação central e frequente.
