@@ -75,11 +75,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildAppBar() {
     return SliverAppBar(
-      expandedHeight: 160,
-      pinned: true,
+      expandedHeight: 112,
       stretch: true,
       backgroundColor: _kHeader,
-      title: const Text('Minha Glicemia'),
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
         background: _HeaderWidget(service: widget.service),
