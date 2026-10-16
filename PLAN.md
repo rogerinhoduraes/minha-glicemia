@@ -60,7 +60,10 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
   by: claude
 - [x] Criar o app no App Store Connect e enviar o build 1.0.0 (1) {#asc-build1}
   by: claude
-- [ ] Preencher a ficha da App Store (capturas iPhone e iPad, textos, privacidade, conta demo) {#asc-ficha}
+- [~] Preencher a ficha da App Store (capturas iPhone e iPad, textos, privacidade, conta demo) {#asc-ficha}
+  by: claude
+  tech: feito textos, categoria, idade, preço, privacidade; faltam capturas 6,9" e iPad 13" (docs/store_assets/ios), enviar build 1.0.0 (2), captura da compra e enviar para revisão
+- [ ] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
   from: agent
 
 ## decisions
