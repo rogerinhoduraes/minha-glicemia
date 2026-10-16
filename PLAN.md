@@ -43,8 +43,8 @@ files: [lib/services/ads_service.dart, lib/widgets/ad_banner.dart, lib/main.dart
 ## Publicar nas lojas {#lojas}
 tech: assinatura Android, entitlements/ATT/SKAdNetwork iOS, assets de loja
 files: [android/**, ios/**, docs/**, pubspec.yaml]
-- [ ] Restaurar CODE_SIGN_ENTITLEMENTS antes de enviar à App Store {#entitlements}
-  from: agent
+- [x] Restaurar CODE_SIGN_ENTITLEMENTS antes de enviar à App Store {#entitlements}
+  by: claude
 - [x] Atualizar Gradle 9.3.1, AGP 9.1.0 e Kotlin 2.4.0 {#gradle}
   by: claude
 
