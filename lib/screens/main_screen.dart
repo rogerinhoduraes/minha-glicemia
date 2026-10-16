@@ -98,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
               index: _tabIndex,
               children: [
                 HomeScreen(service: _service),
-                RelatorioScreen(service: _service),
+                RelatorioScreen(service: _service, ativo: _tabIndex == 1),
               ],
             ),
           ),

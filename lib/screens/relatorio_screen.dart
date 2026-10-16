@@ -13,7 +13,10 @@ const _kHeader  = Color(0xFF1A1E2E);
 
 class RelatorioScreen extends StatefulWidget {
   final GlicemiaService service;
-  const RelatorioScreen({super.key, required this.service});
+
+  /// Aba visível; ao voltar a ficar ativa, recarrega o período.
+  final bool ativo;
+  const RelatorioScreen({super.key, required this.service, this.ativo = true});
 
   @override
   State<RelatorioScreen> createState() => _RelatorioScreenState();
@@ -36,6 +39,12 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
     _inicio = _fim.subtract(const Duration(days: 29));
     AnalyticsService.logTela('relatorio');
     _carregar();
+  }
+
+  @override
+  void didUpdateWidget(RelatorioScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.ativo && !oldWidget.ativo) _carregar();
   }
 
   Future<void> _carregar() async {
@@ -250,7 +259,7 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
           const SizedBox(width: 10),
           _PillInfo(label: 'Fim',    valor: fmt.format(_registros!.last.dataHora)),
           const SizedBox(width: 10),
-          _PillInfo(label: 'Total',  valor: '${s.total} medições'),
+          _PillInfo(label: 'Total',  valor: '${s.total} ${s.total == 1 ? 'medição' : 'medições'}'),
         ]),
       ],
     );
