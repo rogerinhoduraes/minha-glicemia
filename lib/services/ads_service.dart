@@ -18,6 +18,9 @@ const _intervaloIntersticial = Duration(minutes: 3);
 
 // `flutter run --dart-define=ADS_EEA=true` simula usuário europeu para testar o formulário.
 const _forcarEea = bool.fromEnvironment('ADS_EEA');
+// Em aparelho físico a simulação exige o ID de teste que o SDK imprime no log:
+// `--dart-define=ADS_TEST_DEVICE=<id>` (emuladores e simuladores dispensam).
+const _dispositivoTeste = String.fromEnvironment('ADS_TEST_DEVICE');
 
 /// Consentimento (UMP), ATT e inicialização do SDK do AdMob, além do intersticial.
 class AdsService {
@@ -49,7 +52,10 @@ class AdsService {
     ConsentInformation.instance.requestConsentInfoUpdate(
       ConsentRequestParameters(
         consentDebugSettings: kDebugMode && _forcarEea
-            ? ConsentDebugSettings(debugGeography: DebugGeography.debugGeographyEea)
+            ? ConsentDebugSettings(
+                debugGeography: DebugGeography.debugGeographyEea,
+                testIdentifiers: [if (_dispositivoTeste.isNotEmpty) _dispositivoTeste],
+              )
             : null,
       ),
       () => ConsentForm.loadAndShowConsentFormIfRequired((_) => concluido.complete()),
