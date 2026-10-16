@@ -7,8 +7,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 // IDs dos blocos intersticiais criados no console do AdMob.
 // Vazios = intersticial desativado em release.
-const _intersticialAndroid = '';
-const _intersticialIos = '';
+const _intersticialAndroid = 'ca-app-pub-4791753177590529/2039297321';
+const _intersticialIos = 'ca-app-pub-4791753177590529/5451094576';
 
 // IDs de teste oficiais do Google — evitam tráfego inválido em debug.
 const _testIntersticialAndroid = 'ca-app-pub-3940256099942544/1033173712';
