@@ -97,11 +97,27 @@ void main() {
       expect(lista.every((r) => !r.lembreteAtivo), isTrue);
     });
 
-    test('não sobrescreve refeições já cadastradas', () async {
+    test('mantém refeições cadastradas e acrescenta as padrão no fim', () async {
       await service.adicionarRefeicao('Ceia', 0, horario: '22:00');
       await service.garantirRefeicoesIniciais();
       final lista = await service.streamRefeicoes().first;
-      expect(lista.single.nome, 'Ceia');
+      expect(lista.first.nome, 'Ceia');
+      expect(lista.first.horario, '22:00');
+      expect(lista, hasLength(7));
+    });
+
+    test('recria no fim só as refeições padrão que faltam', () async {
+      await service.garantirRefeicoesIniciais();
+      final antes = await service.streamRefeicoes().first;
+      final almoco = antes.firstWhere((r) => r.nome == 'Almoço');
+      await service.deletarRefeicao(almoco.id!);
+
+      await service.garantirRefeicoesIniciais();
+      final depois = await service.streamRefeicoes().first;
+      expect(depois, hasLength(6));
+      expect(depois.last.nome, 'Almoço');
+      expect(depois.last.horario, '12:00');
+      expect(depois.where((r) => r.nome == 'Jantar'), hasLength(1));
     });
 
     test('reordena gravando a nova posição em ordem', () async {

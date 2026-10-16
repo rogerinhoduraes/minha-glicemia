@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/paciente.dart';
@@ -108,20 +110,26 @@ class GlicemiaService {
   /// Refeições criadas no primeiro acesso; não podem ser removidas.
   static final nomesPadrao = {for (final (nome, _) in _refeicoesDefault) nome};
 
+  /// Cria as refeições padrão que faltarem (todas no primeiro acesso),
+  /// no fim da lista e na ordem padrão.
   Future<void> garantirRefeicoesIniciais() async {
-    final snap = await _refeicoesCol.limit(1).get();
-    if (snap.docs.isNotEmpty) return;
+    final snap = await _refeicoesCol.get();
+    final existentes = snap.docs.map((d) => d.data()['nome'] as String?).toSet();
+    var ordem = snap.docs.fold<int>(
+        -1, (m, d) => math.max(m, (d.data()['ordem'] as num?)?.toInt() ?? 0));
     final batch = _db.batch();
-    for (var i = 0; i < _refeicoesDefault.length; i++) {
-      final (nome, horario) = _refeicoesDefault[i];
+    var criou = false;
+    for (final (nome, horario) in _refeicoesDefault) {
+      if (existentes.contains(nome)) continue;
       batch.set(_refeicoesCol.doc(), {
         'nome': nome,
-        'ordem': i,
+        'ordem': ++ordem,
         'horario': horario,
         'lembreteAtivo': false,
       });
+      criou = true;
     }
-    await batch.commit();
+    if (criou) await batch.commit();
   }
 
   /// Remove todos os dados do usuário (registros, refeições e perfil).
