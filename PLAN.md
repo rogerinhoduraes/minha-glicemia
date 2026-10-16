@@ -33,6 +33,8 @@ files: [lib/services/ads_service.dart, lib/widgets/ad_banner.dart, lib/main.dart
 - [~] Banner único na tela principal (Início + Relatório) {#banner-telas}
   by: claude
 - [x] app-ads.txt publicado em rogerinhoduraes.github.io {#app-ads}
+- [x] Atualizar Firebase (core 4 / Firestore 6) e AdMob 9 {#deps}
+  by: claude
 
 ## Publicar nas lojas {#lojas}
 tech: assinatura Android, entitlements/ATT/SKAdNetwork iOS, assets de loja

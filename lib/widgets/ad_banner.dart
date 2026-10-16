@@ -43,7 +43,7 @@ class _AdBannerState extends State<AdBanner> {
 
   Future<void> _carregarAd() async {
     final largura = MediaQuery.of(context).size.width.truncate();
-    final tamanho = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(largura);
+    final tamanho = await AdSize.getLargeAnchoredAdaptiveBannerAdSize(largura);
     if (tamanho == null || !mounted) return;
 
     final isIos = Theme.of(context).platform == TargetPlatform.iOS;

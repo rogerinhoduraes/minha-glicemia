@@ -16,16 +16,16 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # Firebase
-  firebase_core: ^3.13.0
-  firebase_auth: ^5.5.3
-  cloud_firestore: ^5.6.6
-  firebase_analytics: ^11.3.0
+  firebase_core: ^4.15.0
+  firebase_auth: ^6.7.0
+  cloud_firestore: ^6.10.0
+  firebase_analytics: ^12.6.0
 
   # Autenticação
   google_sign_in: ^6.2.2
 
   # AdMob
-  google_mobile_ads: ^5.3.0
+  google_mobile_ads: ^9.1.0
 
   # Utilitários
   intl: ^0.20.2
@@ -49,7 +49,7 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.3
   flutter_native_splash: ^2.4.3
-  fake_cloud_firestore: ^3.1.0
+  fake_cloud_firestore: ^4.3.0
 
 flutter_launcher_icons:
   android: true
