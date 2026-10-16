@@ -73,7 +73,7 @@ Ads use Google test IDs in debug (`kDebugMode`) and production IDs in release.
 
 - **Banner** — a single `AdBanner` in `MainScreen` above the `NavigationBar`, shared by both tabs. Do not add banners inside `IndexedStack` children (hidden banners load). It waits for `AdsService.pronto` and only occupies space after a successful load.
 - **Interstitial** — shown only before sharing the PDF in `RelatorioScreen`, with a 3-minute cooldown. Production unit IDs live in [lib/services/ads_service.dart](lib/services/ads_service.dart); while empty, the interstitial is disabled in release.
-- **Consent** — the GDPR message must be published in the AdMob console (Privacy & messaging), otherwise no form appears. Test it with `flutter run --dart-define=ADS_EEA=true`. The "Privacidade dos anúncios" entry in the Mais sheet appears when UMP requires it.
+- **Consent** — the GDPR message must be published in the AdMob console (Privacy & messaging), otherwise no form appears. Test it with `flutter run --dart-define=ADS_EEA=true`; on a physical device also pass `--dart-define=ADS_TEST_DEVICE=<id>`, using the id the UMP SDK logs ("UMPDebugSettings.testDeviceIdentifiers" in the Xcode console on iOS). The "Privacidade dos anúncios" entry in the Mais sheet appears when UMP requires it.
 - **app-ads.txt** — served from `https://rogerinhoduraes.github.io/app-ads.txt` (repo `rogerinhoduraes.github.io`); the store listings' Website must point to that domain.
 
 ### Android release signing
