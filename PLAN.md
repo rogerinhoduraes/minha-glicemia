@@ -5,6 +5,8 @@ tech: HomeScreen + FormRegistro + ListaHistorico + GlicemiaService
 files: [lib/screens/home_screen.dart, lib/widgets/form_registro.dart, lib/widgets/lista_historico.dart, lib/services/glicemia_service.dart, lib/models/**, test/**]
 - [x] Testes dos models e do GlicemiaService {#testes}
   by: claude
+- [x] Corrigir erro do seletor de refeição e histórico espremido em telas baixas {#layout-home}
+  by: claude
 links: [anuncios]
 
 ## Gerar relatório em PDF {#relatorio}
@@ -17,6 +19,10 @@ links: [anuncios]
 tech: PacienteScreen, RefeicaoScreen, lembretes via NotificacaoService
 files: [lib/screens/paciente_screen.dart, lib/screens/refeicao_screen.dart, lib/services/notificacao_service.dart]
 - [x] Trocar onReorder obsoleto por onReorderItem {#onreorder}
+  by: claude
+- [x] Impedir exclusão das refeições padrão {#refeicoes-padrao}
+  by: claude
+- [x] Alinhar sino e ícone de ordem na lista de refeições {#icones-refeicao}
   by: claude
 
 ## Entrar e gerenciar a conta {#conta}
@@ -46,6 +52,8 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - [x] Restaurar CODE_SIGN_ENTITLEMENTS antes de enviar à App Store {#entitlements}
   by: claude
 - [x] Atualizar Gradle 9.3.1, AGP 9.1.0 e Kotlin 2.4.0 {#gradle}
+  by: claude
+- [x] Assinar iOS com o time S75AESUE2H e ativar o provedor Apple no Firebase {#ios-time}
   by: claude
 
 ## decisions
