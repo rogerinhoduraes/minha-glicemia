@@ -4,6 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import '../models/paciente.dart';
 import '../models/registro_glicemia.dart';
+import '../widgets/fonte_faixas.dart';
 
 class PdfService {
   // ── Cores ─────────────────────────────────────────────────────────────────
@@ -303,11 +304,17 @@ class PdfService {
 
   static pw.Widget _secaoDistribuicao(_Stats s, pw.Font bold, pw.Font regular) {
     return pw.Column(children: [
-      _barraNivel('Normal  (≤ 140)',      s.normal,    s.total, _verde,   _verdeClaro,   bold, regular),
+      _barraNivel('Normal  (< 140)',      s.normal,    s.total, _verde,   _verdeClaro,   bold, regular),
       pw.SizedBox(height: 8),
-      _barraNivel('Alto  (141–200)',       s.alto,      s.total, _laranja, _laranjaClaro, bold, regular),
+      _barraNivel('Alto  (140–199)',       s.alto,      s.total, _laranja, _laranjaClaro, bold, regular),
       pw.SizedBox(height: 8),
-      _barraNivel('Muito Alto  (> 200)',   s.muitoAlto, s.total, _vermelho, _vermelhoClaro, bold, regular),
+      _barraNivel('Muito Alto  (200 ou mais)',   s.muitoAlto, s.total, _vermelho, _vermelhoClaro, bold, regular),
+      pw.SizedBox(height: 8),
+      pw.Align(
+        alignment: pw.Alignment.centerLeft,
+        child: pw.Text('Fonte: $fonteFaixasTitulo, Tabela 1 — $fonteFaixasUrl. $fonteFaixasAviso',
+          style: pw.TextStyle(font: regular, fontSize: 7, color: _cinza)),
+      ),
     ]);
   }
 
@@ -463,8 +470,8 @@ class PdfService {
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   static NivelGlicemia _nivelDe(int v) {
-    if (v <= 140) return NivelGlicemia.normal;
-    if (v <= 200) return NivelGlicemia.alto;
+    if (v < 140) return NivelGlicemia.normal;
+    if (v < 200) return NivelGlicemia.alto;
     return NivelGlicemia.muitoAlto;
   }
 

@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../models/registro_glicemia.dart';
 import '../services/analytics_service.dart';
 import '../services/glicemia_service.dart';
+import 'fonte_faixas.dart';
 
 class ListaHistorico extends StatelessWidget {
   final GlicemiaService service;
@@ -61,11 +62,15 @@ class ListaHistorico extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-            child: Text('Histórico',
-              style: GoogleFonts.nunitoSans(
-                fontSize: 16, fontWeight: FontWeight.w800,
-                color: const Color(0xFF1A1917))),
+            padding: const EdgeInsets.fromLTRB(20, 14, 12, 2),
+            child: Row(children: [
+              Text('Histórico',
+                style: GoogleFonts.nunitoSans(
+                  fontSize: 16, fontWeight: FontWeight.w800,
+                  color: const Color(0xFF1A1917))),
+              const Spacer(),
+              const FonteFaixasLink(),
+            ]),
           ),
           Expanded(
             child: StreamBuilder<List<RegistroGlicemia>>(

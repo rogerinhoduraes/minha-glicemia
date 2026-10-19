@@ -16,8 +16,8 @@ class RegistroGlicemia {
   });
 
   NivelGlicemia get nivel {
-    if (valor <= 140) return NivelGlicemia.normal;
-    if (valor <= 200) return NivelGlicemia.alto;
+    if (valor < 140) return NivelGlicemia.normal;
+    if (valor < 200) return NivelGlicemia.alto;
     return NivelGlicemia.muitoAlto;
   }
 

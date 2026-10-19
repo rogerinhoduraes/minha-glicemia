@@ -7,6 +7,9 @@ files: [lib/screens/home_screen.dart, lib/widgets/form_registro.dart, lib/widget
   by: claude
 - [x] Corrigir erro do seletor de refeição e histórico espremido em telas baixas {#layout-home}
   by: claude
+- [x] Mostrar a fonte (SBD) das faixas Normal/Alto/Muito alto no app e no PDF {#fonte-faixas}
+  by: claude
+  tech: rejeição Apple 1.4.1; widget FonteFaixas no histórico, relatório e Mais; rodapé no PDF; limites < 140 / 140–199 / ≥ 200
 links: [anuncios]
 
 ## Gerar relatório em PDF {#relatorio}
@@ -63,6 +66,9 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - [~] Preencher a ficha da App Store (capturas iPhone e iPad, textos, privacidade, conta demo) {#asc-ficha}
   by: claude
   tech: feito textos, categoria, idade, preço, privacidade, capturas iPhone 6,3" (docs/store_assets/ios/iphone_6_3) e iPad 13", build 1.0.0 (2) enviado; faltam selecionar o build, captura da compra no IAP e enviar para revisão
+- [~] Corrigir a rejeição da Apple (1.4.1, 2.1(b), 2.3.10) e reenviar o build 1.0.0 (3) {#asc-rejeicao-1}
+  by: claude
+  tech: feito: Android fora da descrição, captura e nota de revisão no IAP remover_anuncios, builds 3 e 4 enviados; falta selecionar o build 4, incluir o IAP no envio e reenviar
 - [!] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
   from: agent
   tech: solicitação ainda não enviada; dono da conta precisa preencher o formulário de transferência (código de verificação ou ID da transação)
@@ -72,3 +78,4 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - 2026-10-16: banner único no MainScreen (cobre Início e Relatório); IndexedStack manteria dois banners montados, um invisível.
 - 2026-10-16: remoção de anúncios é compra única (não assinatura), vinculada à conta da loja (Apple ID / conta Google) e restaurada pela loja — sem validação em servidor.
 - 2026-10-16: cupons de isenção usam os códigos das lojas (oferta na Apple, promocionais no Google); cupom próprio no app violaria a diretriz 3.1.1 da Apple.
+- 2026-10-19: faixas de glicemia seguem a tabela da Diretriz SBD ed. 2026 (Diagnóstico de DM, TTGO 2 h): Normal < 140, Alto 140–199, Muito alto ≥ 200 — 140 passa de Normal para Alto. Sem separar jejum/pós-refeição e sem rótulos diagnósticos (pré-diabetes/diabetes); fonte citada com link e aviso de que não substitui avaliação médica (exigência Apple 1.4.1).
