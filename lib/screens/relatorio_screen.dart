@@ -7,6 +7,7 @@ import '../services/ads_service.dart';
 import '../services/analytics_service.dart';
 import '../services/glicemia_service.dart';
 import '../services/pdf_service.dart';
+import '../widgets/fonte_faixas.dart';
 
 const _kPrimary = Color(0xFF2563EB);
 const _kHeader  = Color(0xFF1A1E2E);
@@ -289,14 +290,16 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
       titulo: 'Distribuição por nível',
       icone: Icons.pie_chart_outline,
       children: [
-        _BarraNivel(label: 'Normal  (≤ 140)', count: s.normal,    total: s.total,
+        _BarraNivel(label: 'Normal  (< 140)', count: s.normal,    total: s.total,
             cor: const Color(0xFF059669), fundo: const Color(0xFFECFDF5)),
         const SizedBox(height: 10),
-        _BarraNivel(label: 'Alto  (141–200)',  count: s.alto,      total: s.total,
+        _BarraNivel(label: 'Alto  (140–199)',  count: s.alto,      total: s.total,
             cor: const Color(0xFFD97706), fundo: const Color(0xFFFFFBEB)),
         const SizedBox(height: 10),
-        _BarraNivel(label: 'Muito alto  (> 200)', count: s.muitoAlto, total: s.total,
+        _BarraNivel(label: 'Muito alto  (≥ 200)', count: s.muitoAlto, total: s.total,
             cor: const Color(0xFFDC2626), fundo: const Color(0xFFFEF2F2)),
+        const SizedBox(height: 4),
+        const Align(alignment: Alignment.centerLeft, child: FonteFaixasLink()),
       ],
     );
   }
@@ -311,11 +314,11 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _LegendaItem(cor: Color(0xFF059669), label: 'Normal ≤ 140'),
+            _LegendaItem(cor: Color(0xFF059669), label: 'Normal < 140'),
             SizedBox(width: 14),
-            _LegendaItem(cor: Color(0xFFD97706), label: 'Alto 141–200'),
+            _LegendaItem(cor: Color(0xFFD97706), label: 'Alto 140–199'),
             SizedBox(width: 14),
-            _LegendaItem(cor: Color(0xFFDC2626), label: 'Muito alto > 200'),
+            _LegendaItem(cor: Color(0xFFDC2626), label: 'Muito alto ≥ 200'),
           ],
         ),
       ],
@@ -342,8 +345,8 @@ class _RelatorioScreenState extends State<RelatorioScreen> {
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   NivelGlicemia _nivelDe(int v) {
-    if (v <= 140) return NivelGlicemia.normal;
-    if (v <= 200) return NivelGlicemia.alto;
+    if (v < 140) return NivelGlicemia.normal;
+    if (v < 200) return NivelGlicemia.alto;
     return NivelGlicemia.muitoAlto;
   }
 
@@ -761,8 +764,8 @@ class _LinhaRefeicao extends StatelessWidget {
 
   Color get _cor {
     final v = media.round();
-    if (v <= 140) return const Color(0xFF059669);
-    if (v <= 200) return const Color(0xFFD97706);
+    if (v < 140) return const Color(0xFF059669);
+    if (v < 200) return const Color(0xFFD97706);
     return const Color(0xFFDC2626);
   }
 

@@ -5,8 +5,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../services/ads_service.dart';
 import '../services/auth_service.dart';
 import '../services/compra_service.dart';
+import '../services/foto_perfil_service.dart';
 import '../services/glicemia_service.dart';
 import '../widgets/ad_banner.dart';
+import '../widgets/fonte_faixas.dart';
 import 'home_screen.dart';
 import 'paciente_screen.dart';
 import 'refeicao_screen.dart';
@@ -102,7 +104,10 @@ class _MainScreenState extends State<MainScreen> {
     );
     if (confirmou != true) return;
     try {
-      await _auth.deleteAccount(_service.deletarTodosDados);
+      await _auth.deleteAccount(() async {
+        await _service.deletarTodosDados();
+        await FotoPerfilService().remover();
+      });
     } on FirebaseAuthException catch (e) {
       messenger.showSnackBar(SnackBar(content: Text(
         e.code == 'requires-recent-login'
@@ -209,6 +214,12 @@ class _MaisSheet extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (_) => RefeicaoScreen(service: service)));
               },
+            ),
+            ListTile(
+              leading: const Icon(Icons.menu_book_outlined, color: Color(0xFF2563EB)),
+              title: Text('Faixas de glicemia e fonte',
+                style: GoogleFonts.nunitoSans(fontSize: 15, fontWeight: FontWeight.w700)),
+              onTap: () => mostrarFonteFaixas(context),
             ),
             ListTile(
               leading: const Icon(Icons.privacy_tip_outlined, color: Color(0xFF2563EB)),

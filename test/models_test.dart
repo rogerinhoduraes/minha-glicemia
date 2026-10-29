@@ -16,12 +16,12 @@ void main() {
     RegistroGlicemia comValor(int v) =>
         RegistroGlicemia(dataHora: DateTime(2026, 1, 1), refeicao: 'Almoço', valor: v);
 
-    test('nivel respeita os limites 140 e 200', () {
+    test('nivel segue as faixas da SBD (< 140, 140–199, ≥ 200)', () {
       expect(comValor(70).nivel, NivelGlicemia.normal);
-      expect(comValor(140).nivel, NivelGlicemia.normal);
-      expect(comValor(141).nivel, NivelGlicemia.alto);
-      expect(comValor(200).nivel, NivelGlicemia.alto);
-      expect(comValor(201).nivel, NivelGlicemia.muitoAlto);
+      expect(comValor(139).nivel, NivelGlicemia.normal);
+      expect(comValor(140).nivel, NivelGlicemia.alto);
+      expect(comValor(199).nivel, NivelGlicemia.alto);
+      expect(comValor(200).nivel, NivelGlicemia.muitoAlto);
     });
 
     test('toMap e fromDoc fazem ida e volta', () async {
