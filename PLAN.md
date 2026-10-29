@@ -72,9 +72,15 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - [~] Corrigir a rejeição da Apple (1.4.1, 2.1(b), 2.3.10) e reenviar o build 1.0.0 (3) {#asc-rejeicao-1}
   by: claude
   tech: feito: Android fora da descrição, captura e nota de revisão no IAP remover_anuncios, builds 3 e 4 enviados; falta selecionar o build 4, incluir o IAP no envio e reenviar
-- [~] Enviar a versão 1.0.1 (foto do paciente + URL de marketing) para revisão da Apple {#asc-1-0-1}
+- [x] Enviar a versão 1.0.1 (foto do paciente + URL de marketing) para revisão da Apple {#asc-1-0-1}
   by: claude
-  tech: feito: build 1.0.1 (5) enviado ao App Store Connect; falta criar a versão 1.0.1, preencher novidades e URL de marketing, selecionar o build e enviar para revisão. URL de marketing https://rogerinhoduraes.github.io só pode ser editada em nova versão; depois de aprovada, conferir sellerUrl no iTunes lookup e clicar em "Verificar se há atualizações" no AdMob
+  tech: build 1.0.1 (5) enviado para revisão em 2026-10-29 (Aguardando revisão, até 48 h), lançamento automático após aprovação
+- [ ] Depois da aprovação da 1.0.1: conferir o sellerUrl e liberar a veiculação de anúncios no AdMob {#admob-verificar}
+  from: agent
+  tech: 1) curl "https://itunes.apple.com/lookup?id=6823675779&country=br" e ver se sellerUrl = https://rogerinhoduraes.github.io; 2) AdMob > Apps > Minha Glicemia iOS > "Verificar se há atualizações" (o rastreamento do app-ads.txt pode levar dias); 3) status deve passar de "Requer revisão" para "Pronta"
+- [ ] Vincular o app Android à loja no AdMob depois de publicar no Google Play {#admob-android}
+  from: agent
+  tech: hoje "Veiculação limitada"; depende de {#play-transfer} e da publicação
 - [!] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
   from: agent
   tech: solicitação ainda não enviada; dono da conta precisa preencher o formulário de transferência (código de verificação ou ID da transação)
