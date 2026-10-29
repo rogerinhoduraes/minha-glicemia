@@ -27,7 +27,7 @@ files: [lib/screens/paciente_screen.dart, lib/screens/refeicao_screen.dart, lib/
   by: claude
 - [x] Alinhar sino e ícone de ordem na lista de refeições {#icones-refeicao}
   by: claude
-- [~] Trocar a foto do paciente (galeria ou câmera), guardada só no aparelho {#foto-perfil}
+- [x] Trocar a foto do paciente (galeria ou câmera), guardada só no aparelho {#foto-perfil}
   by: claude
   tech: image_picker + path_provider, arquivo perfil_<uid>.jpg em documentos; sem Firestore/Storage; apagada na exclusão da conta
 
@@ -74,7 +74,7 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
   tech: feito: Android fora da descrição, captura e nota de revisão no IAP remover_anuncios, builds 3 e 4 enviados; falta selecionar o build 4, incluir o IAP no envio e reenviar
 - [~] Enviar a versão 1.0.1 (foto do paciente + URL de marketing) para revisão da Apple {#asc-1-0-1}
   by: claude
-  tech: URL de marketing https://rogerinhoduraes.github.io só pode ser editada em nova versão; depois de aprovada, conferir sellerUrl no iTunes lookup e clicar em "Verificar se há atualizações" no AdMob
+  tech: feito: build 1.0.1 (5) enviado ao App Store Connect; falta criar a versão 1.0.1, preencher novidades e URL de marketing, selecionar o build e enviar para revisão. URL de marketing https://rogerinhoduraes.github.io só pode ser editada em nova versão; depois de aprovada, conferir sellerUrl no iTunes lookup e clicar em "Verificar se há atualizações" no AdMob
 - [!] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
   from: agent
   tech: solicitação ainda não enviada; dono da conta precisa preencher o formulário de transferência (código de verificação ou ID da transação)
