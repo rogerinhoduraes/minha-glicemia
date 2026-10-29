@@ -70,6 +70,10 @@
 		</array>
 		<key>GADApplicationIdentifier</key>
 		<string>ca-app-pub-4791753177590529~4577241111</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Usamos a câmera para você tirar a foto do paciente. A foto fica salva apenas neste aparelho.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Usamos suas fotos para você escolher a foto do paciente. A foto fica salva apenas neste aparelho.</string>
 		<key>NSUserTrackingUsageDescription</key>
 		<string>Usamos o identificador do dispositivo para exibir anúncios mais relevantes. Seus dados de glicemia nunca são usados para esse fim.</string>
 		<key>SKAdNetworkItems</key>

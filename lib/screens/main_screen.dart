@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../services/ads_service.dart';
 import '../services/auth_service.dart';
 import '../services/compra_service.dart';
+import '../services/foto_perfil_service.dart';
 import '../services/glicemia_service.dart';
 import '../widgets/ad_banner.dart';
 import '../widgets/fonte_faixas.dart';
@@ -103,7 +104,10 @@ class _MainScreenState extends State<MainScreen> {
     );
     if (confirmou != true) return;
     try {
-      await _auth.deleteAccount(_service.deletarTodosDados);
+      await _auth.deleteAccount(() async {
+        await _service.deletarTodosDados();
+        await FotoPerfilService().remover();
+      });
     } on FirebaseAuthException catch (e) {
       messenger.showSnackBar(SnackBar(content: Text(
         e.code == 'requires-recent-login'

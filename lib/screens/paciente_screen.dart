@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import '../models/paciente.dart';
 import '../services/analytics_service.dart';
+import '../services/foto_perfil_service.dart';
 import '../services/glicemia_service.dart';
 
 const _kPrimary = Color(0xFF2563EB);
@@ -17,6 +21,8 @@ class PacienteScreen extends StatefulWidget {
 }
 
 class _PacienteScreenState extends State<PacienteScreen> {
+  final _fotoService = FotoPerfilService();
+  File? _foto;
   final _nomeCtrl = TextEditingController();
   final _pesoCtrl = TextEditingController();
   DateTime? _dataNasc;
@@ -40,9 +46,11 @@ class _PacienteScreenState extends State<PacienteScreen> {
 
   Future<void> _carregar() async {
     final p = await widget.service.buscarPaciente();
+    final foto = await _fotoService.buscar();
     if (mounted) {
       setState(() {
         _carregando = false;
+        _foto = foto;
         if (p != null) {
           _nomeCtrl.text = p.nome;
           _pesoCtrl.text = p.peso?.toStringAsFixed(1) ?? '';
@@ -169,13 +177,97 @@ class _PacienteScreenState extends State<PacienteScreen> {
     );
   }
 
+  Future<void> _escolherFoto(ImageSource origem) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      final img = await ImagePicker()
+          .pickImage(source: origem, maxWidth: 512, imageQuality: 85);
+      if (img == null) return;
+      final salva = await _fotoService.salvar(img.path);
+      await FileImage(salva).evict(); // mesmo caminho: descarta a imagem em cache
+      if (mounted) setState(() => _foto = salva);
+    } catch (_) {
+      messenger.showSnackBar(const SnackBar(
+          content: Text('Não foi possível usar a câmera ou a galeria.')));
+    }
+  }
+
+  Future<void> _removerFoto() async {
+    final antiga = _foto;
+    await _fotoService.remover();
+    if (antiga != null) await FileImage(antiga).evict();
+    if (mounted) setState(() => _foto = null);
+  }
+
+  void _menuFoto() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          ListTile(
+            leading: const Icon(Icons.photo_library_outlined),
+            title: const Text('Escolher da galeria'),
+            onTap: () {
+              Navigator.pop(ctx);
+              _escolherFoto(ImageSource.gallery);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.photo_camera_outlined),
+            title: const Text('Tirar foto'),
+            onTap: () {
+              Navigator.pop(ctx);
+              _escolherFoto(ImageSource.camera);
+            },
+          ),
+          if (_foto != null)
+            ListTile(
+              leading: const Icon(Icons.delete_outline, color: Color(0xFFEF4444)),
+              title: const Text('Remover foto',
+                  style: TextStyle(color: Color(0xFFEF4444))),
+              onTap: () {
+                Navigator.pop(ctx);
+                _removerFoto();
+              },
+            ),
+        ]),
+      ),
+    );
+  }
+
   Widget _avatar() {
+    return GestureDetector(
+      onTap: _menuFoto,
+      child: Semantics(
+        button: true,
+        label: 'Alterar foto do paciente',
+        child: Stack(children: [
+          _avatarImagem(),
+          Positioned(
+            right: 0, bottom: 0,
+            child: Container(
+              padding: const EdgeInsets.all(6),
+              decoration: const BoxDecoration(
+                  color: _kPrimary, shape: BoxShape.circle),
+              child: const Icon(Icons.photo_camera, size: 16, color: Colors.white),
+            ),
+          ),
+        ]),
+      ),
+    );
+  }
+
+  Widget _avatarImagem() {
     final nome = _nomeCtrl.text.trim();
     final inicial = nome.isNotEmpty ? nome[0].toUpperCase() : '?';
     return Container(
       width: 88, height: 88,
+      clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
+        image: _foto == null
+            ? null
+            : DecorationImage(image: FileImage(_foto!), fit: BoxFit.cover),
         gradient: const LinearGradient(
           colors: [_kHeader, _kPrimary],
           begin: Alignment.topLeft, end: Alignment.bottomRight,
@@ -183,11 +275,13 @@ class _PacienteScreenState extends State<PacienteScreen> {
         boxShadow: [BoxShadow(
             color: _kPrimary.withValues(alpha: 0.3), blurRadius: 16, offset: const Offset(0, 6))],
       ),
-      child: Center(
-        child: Text(inicial,
-          style: GoogleFonts.nunitoSans(
-            fontSize: 36, fontWeight: FontWeight.w900, color: Colors.white)),
-      ),
+      child: _foto != null
+          ? null
+          : Center(
+              child: Text(inicial,
+                style: GoogleFonts.nunitoSans(
+                  fontSize: 36, fontWeight: FontWeight.w900, color: Colors.white)),
+            ),
     );
   }
 

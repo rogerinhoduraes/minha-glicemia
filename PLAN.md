@@ -27,6 +27,9 @@ files: [lib/screens/paciente_screen.dart, lib/screens/refeicao_screen.dart, lib/
   by: claude
 - [x] Alinhar sino e ícone de ordem na lista de refeições {#icones-refeicao}
   by: claude
+- [~] Trocar a foto do paciente (galeria ou câmera), guardada só no aparelho {#foto-perfil}
+  by: claude
+  tech: image_picker + path_provider, arquivo perfil_<uid>.jpg em documentos; sem Firestore/Storage; apagada na exclusão da conta
 
 ## Entrar e gerenciar a conta {#conta}
 tech: AuthService (e-mail, Google, Apple), exclusão de conta
@@ -69,6 +72,9 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - [~] Corrigir a rejeição da Apple (1.4.1, 2.1(b), 2.3.10) e reenviar o build 1.0.0 (3) {#asc-rejeicao-1}
   by: claude
   tech: feito: Android fora da descrição, captura e nota de revisão no IAP remover_anuncios, builds 3 e 4 enviados; falta selecionar o build 4, incluir o IAP no envio e reenviar
+- [~] Enviar a versão 1.0.1 (foto do paciente + URL de marketing) para revisão da Apple {#asc-1-0-1}
+  by: claude
+  tech: URL de marketing https://rogerinhoduraes.github.io só pode ser editada em nova versão; depois de aprovada, conferir sellerUrl no iTunes lookup e clicar em "Verificar se há atualizações" no AdMob
 - [!] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
   from: agent
   tech: solicitação ainda não enviada; dono da conta precisa preencher o formulário de transferência (código de verificação ou ID da transação)
@@ -79,3 +85,5 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - 2026-10-16: remoção de anúncios é compra única (não assinatura), vinculada à conta da loja (Apple ID / conta Google) e restaurada pela loja — sem validação em servidor.
 - 2026-10-16: cupons de isenção usam os códigos das lojas (oferta na Apple, promocionais no Google); cupom próprio no app violaria a diretriz 3.1.1 da Apple.
 - 2026-10-19: faixas de glicemia seguem a tabela da Diretriz SBD ed. 2026 (Diagnóstico de DM, TTGO 2 h): Normal < 140, Alto 140–199, Muito alto ≥ 200 — 140 passa de Normal para Alto. Sem separar jejum/pós-refeição e sem rótulos diagnósticos (pré-diabetes/diabetes); fonte citada com link e aviso de que não substitui avaliação médica (exigência Apple 1.4.1).
+- 2026-10-29: foto do paciente fica só no aparelho (arquivo local por uid), sem Firebase Storage — evita mudar política de privacidade e rótulo de privacidade da App Store; não sincroniza entre aparelhos.
+- 2026-10-29: URL de marketing (https://rogerinhoduraes.github.io) vai na versão 1.0.1, pois a 1.0 está bloqueada; é por ela que o AdMob acha o app-ads.txt.
