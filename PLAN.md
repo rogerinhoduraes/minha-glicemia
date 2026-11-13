@@ -80,10 +80,18 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
   tech: 1) curl "https://itunes.apple.com/lookup?id=6823675779&country=br" e ver se sellerUrl = https://rogerinhoduraes.github.io; 2) AdMob > Apps > Minha Glicemia iOS > "Verificar se há atualizações" (o rastreamento do app-ads.txt pode levar dias); 3) status deve passar de "Requer revisão" para "Pronta"
 - [ ] Vincular o app Android à loja no AdMob depois de publicar no Google Play {#admob-android}
   from: agent
-  tech: hoje "Veiculação limitada"; depende de {#play-transfer} e da publicação
+  tech: hoje "Veiculação limitada"; depende da publicação no Google Play (app com.minhaglicemia.app, id 4974213702572799963); no AdMob, Apps > Minha Glicemia Android > vincular à loja, usar o novo pacote
+- [ ] Depois que o Google liberar o app Android (revisão enviada em 2026-11-10, só Brasil): checar produção, produto e login {#android-pos-aprovacao}
+  from: agent
+  tech: 1) confirmar status "Publicado" em Visão geral da publicação; 2) instalar da loja e testar login Google (SHA do Play App Signing já está no Firebase) e Apple não se aplica; 3) testar a compra remover_anuncios (produto ATIVO, BRL 4,90, 174 países, só distribuído no Brasil; testar com conta em Configurações > Testes de licença); 4) vincular no AdMob ({#admob-android}); 5) se rejeitado, ler Atividades de envio; 6) fazer commit e PR da branch feat/android-novo-pacote (rodar scripts/ci-local.sh antes; hoje sem commit) e fechar {#android-novo-pacote}
 - [!] Transferir o app Android da conta pessoal para a Novo Consultoria (4810291150440712710) {#play-transfer}
   from: agent
+  tech: substituído em 2026-11-09 pelo novo pacote com.minhaglicemia.app ({#android-novo-pacote}); transferência não é mais necessária
   tech: solicitação ainda não enviada; dono da conta precisa preencher o formulário de transferência (código de verificação ou ID da transação)
+- [~] Publicar o Android na Novo Consultoria com o novo pacote com.minhaglicemia.app (produção) {#android-novo-pacote}
+  by: claude
+  from: agent
+  tech: applicationId novo, app Android novo no Firebase com SHA-1/SHA-256, google-services.json e firebase_options (bloco android) atualizados, AAB 1.0.1+5. Feito em 2026-11-10: app criado na Novo Consultoria (id 4974213702572799963), AAB em rascunho de produção, declarações (privacidade, anúncios, ID de publicidade, saúde, financeiro, governo), segurança dos dados em rascunho, ficha pt-BR com textos, ícone, gráfico (docs/store_assets/feature_graphic_1024x500.png) e 4 capturas. Falta: detalhes do login (conta teste), classificação IARC, público-alvo, enviar segurança dos dados, tablet se exigido, enviar para revisão; SHA do Play App Signing no Firebase e produto remover_anuncios já feitos em 2026-11-10
 
 ## decisions
 - 2026-10-16: intersticial só ao exportar PDF (antes do compartilhamento, cooldown de 3 min) — não após salvar medição, que é a ação central e frequente.
@@ -93,3 +101,4 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - 2026-10-19: faixas de glicemia seguem a tabela da Diretriz SBD ed. 2026 (Diagnóstico de DM, TTGO 2 h): Normal < 140, Alto 140–199, Muito alto ≥ 200 — 140 passa de Normal para Alto. Sem separar jejum/pós-refeição e sem rótulos diagnósticos (pré-diabetes/diabetes); fonte citada com link e aviso de que não substitui avaliação médica (exigência Apple 1.4.1).
 - 2026-10-29: foto do paciente fica só no aparelho (arquivo local por uid), sem Firebase Storage — evita mudar política de privacidade e rótulo de privacidade da App Store; não sincroniza entre aparelhos.
 - 2026-10-29: URL de marketing (https://rogerinhoduraes.github.io) vai na versão 1.0.1, pois a 1.0 está bloqueada; é por ela que o AdMob acha o app-ads.txt.
+- 2026-11-09: Android usa novo pacote com.minhaglicemia.app e é publicado direto na conta Novo Consultoria (4810291150440712710), em vez de transferir o pacote com.minhaglicemia.minha_glicemia da conta pessoal; só applicationId muda (namespace e MainActivity ficam). iOS não é afetado.

@@ -35,7 +35,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.minhaglicemia.minha_glicemia"
+        applicationId = "com.minhaglicemia.app"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
