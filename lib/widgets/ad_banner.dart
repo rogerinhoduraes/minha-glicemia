@@ -4,7 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../services/ads_service.dart';
 
-const _adUnitIdAndroid = 'ca-app-pub-4791753177590529/4305778378';
+const _adUnitIdAndroid = 'ca-app-pub-4791753177590529/9746791134';
 const _adUnitIdIos = 'ca-app-pub-4791753177590529/5836379677';
 
 // IDs de teste oficiais do Google — evitam tráfego inválido em debug.

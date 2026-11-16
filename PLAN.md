@@ -78,9 +78,10 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
 - [ ] Depois da aprovação da 1.0.1: conferir o sellerUrl e liberar a veiculação de anúncios no AdMob {#admob-verificar}
   from: agent
   tech: 1) curl "https://itunes.apple.com/lookup?id=6823675779&country=br" e ver se sellerUrl = https://rogerinhoduraes.github.io; 2) AdMob > Apps > Minha Glicemia iOS > "Verificar se há atualizações" (o rastreamento do app-ads.txt pode levar dias); 3) status deve passar de "Requer revisão" para "Pronta"
-- [ ] Vincular o app Android à loja no AdMob depois de publicar no Google Play {#admob-android}
+- [~] Vincular o app Android à loja no AdMob depois de publicar no Google Play {#admob-android}
+  by: claude
   from: agent
-  tech: hoje "Veiculação limitada"; depende da publicação no Google Play (app com.minhaglicemia.app, id 4974213702572799963); no AdMob, Apps > Minha Glicemia Android > vincular à loja, usar o novo pacote
+  tech: 2026-11-16: o AdMob criou sozinho o app ~3491152786 já vinculado ao Play (o antigo ~8654114705 não aceita o pacote); migrado o código para ele (manifest, banner 9746791134, intersticial 3790535685), versão 1.0.1+7 a enviar ao Play; depois conferir status "Pronta". Antes: "Veiculação limitada"; depende da publicação no Google Play (app com.minhaglicemia.app, id 4974213702572799963); no AdMob, Apps > Minha Glicemia Android > vincular à loja, usar o novo pacote
 - [ ] Depois que o Google liberar o app Android (revisão enviada em 2026-11-10, só Brasil): checar produção, produto e login {#android-pos-aprovacao}
   from: agent
   tech: 1) confirmar status "Publicado" em Visão geral da publicação; 2) instalar da loja e testar login Google (SHA do Play App Signing já está no Firebase) e Apple não se aplica; 3) testar a compra remover_anuncios (produto ATIVO, BRL 4,90, 174 países, só distribuído no Brasil; testar com conta em Configurações > Testes de licença); 4) vincular no AdMob ({#admob-android}); 5) se rejeitado, ler Atividades de envio; 6) fazer commit e PR da branch feat/android-novo-pacote (rodar scripts/ci-local.sh antes; hoje sem commit) e fechar {#android-novo-pacote}
@@ -94,6 +95,7 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
   tech: aprovado pelo Google em 2026-11-16 (versão 1.0.1+6, Brasil). applicationId novo, app Android novo no Firebase com SHA-1/SHA-256, google-services.json e firebase_options (bloco android) atualizados, AAB 1.0.1+5. Feito em 2026-11-10: app criado na Novo Consultoria (id 4974213702572799963), AAB em rascunho de produção, declarações (privacidade, anúncios, ID de publicidade, saúde, financeiro, governo), segurança dos dados em rascunho, ficha pt-BR com textos, ícone, gráfico (docs/store_assets/feature_graphic_1024x500.png) e 4 capturas. Falta: detalhes do login (conta teste), classificação IARC, público-alvo, enviar segurança dos dados, tablet se exigido, enviar para revisão; SHA do Play App Signing no Firebase e produto remover_anuncios já feitos em 2026-11-10
 
 ## decisions
+- 2026-11-16: Android passa a usar o app AdMob ~3491152786 (já vinculado ao Play) em vez do ~8654114705, que não pode receber o pacote novo; exige novo build (1.0.1+7).
 - 2026-10-16: intersticial só ao exportar PDF (antes do compartilhamento, cooldown de 3 min) — não após salvar medição, que é a ação central e frequente.
 - 2026-10-16: banner único no MainScreen (cobre Início e Relatório); IndexedStack manteria dois banners montados, um invisível.
 - 2026-10-16: remoção de anúncios é compra única (não assinatura), vinculada à conta da loja (Apple ID / conta Google) e restaurada pela loja — sem validação em servidor.
