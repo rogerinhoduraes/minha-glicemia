@@ -88,10 +88,10 @@ files: [android/**, ios/**, docs/**, pubspec.yaml]
   from: agent
   tech: substituído em 2026-11-09 pelo novo pacote com.minhaglicemia.app ({#android-novo-pacote}); transferência não é mais necessária
   tech: solicitação ainda não enviada; dono da conta precisa preencher o formulário de transferência (código de verificação ou ID da transação)
-- [~] Publicar o Android na Novo Consultoria com o novo pacote com.minhaglicemia.app (produção) {#android-novo-pacote}
+- [x] Publicar o Android na Novo Consultoria com o novo pacote com.minhaglicemia.app (produção) {#android-novo-pacote}
   by: claude
   from: agent
-  tech: applicationId novo, app Android novo no Firebase com SHA-1/SHA-256, google-services.json e firebase_options (bloco android) atualizados, AAB 1.0.1+5. Feito em 2026-11-10: app criado na Novo Consultoria (id 4974213702572799963), AAB em rascunho de produção, declarações (privacidade, anúncios, ID de publicidade, saúde, financeiro, governo), segurança dos dados em rascunho, ficha pt-BR com textos, ícone, gráfico (docs/store_assets/feature_graphic_1024x500.png) e 4 capturas. Falta: detalhes do login (conta teste), classificação IARC, público-alvo, enviar segurança dos dados, tablet se exigido, enviar para revisão; SHA do Play App Signing no Firebase e produto remover_anuncios já feitos em 2026-11-10
+  tech: aprovado pelo Google em 2026-11-16 (versão 1.0.1+6, Brasil). applicationId novo, app Android novo no Firebase com SHA-1/SHA-256, google-services.json e firebase_options (bloco android) atualizados, AAB 1.0.1+5. Feito em 2026-11-10: app criado na Novo Consultoria (id 4974213702572799963), AAB em rascunho de produção, declarações (privacidade, anúncios, ID de publicidade, saúde, financeiro, governo), segurança dos dados em rascunho, ficha pt-BR com textos, ícone, gráfico (docs/store_assets/feature_graphic_1024x500.png) e 4 capturas. Falta: detalhes do login (conta teste), classificação IARC, público-alvo, enviar segurança dos dados, tablet se exigido, enviar para revisão; SHA do Play App Signing no Firebase e produto remover_anuncios já feitos em 2026-11-10
 
 ## decisions
 - 2026-10-16: intersticial só ao exportar PDF (antes do compartilhamento, cooldown de 3 min) — não após salvar medição, que é a ação central e frequente.
